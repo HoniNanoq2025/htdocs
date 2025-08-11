@@ -1,0 +1,68 @@
+/* UseAuth.module.css */
+
+.container {
+  padding: 1.5rem;
+  max-width: 28rem;
+  margin: 0 auto;
+  background-color: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.loading {
+  padding: 1rem;
+}
+
+.title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: #1f2937;
+}
+
+.userInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.loggedInText {
+  color: #059669;
+  font-weight: 500;
+}
+
+.emailText {
+  font-size: 0.875rem;
+  color: #4b5563;
+}
+
+.logoutButton {
+  width: 100%;
+  background-color: #ef4444;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.logoutButton:hover {
+  background-color: #dc2626;
+}
+
+.logoutButton:active {
+  background-color: #b91c1c;
+}
+
+.loggedOutText {
+  color: #dc2626;
+  font-weight: 500;
+}
+
+.helpText {
+  font-size: 0.875rem;
+  color: #4b5563;
+}

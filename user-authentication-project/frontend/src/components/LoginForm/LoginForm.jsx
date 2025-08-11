@@ -9,10 +9,30 @@ const LoginForm = () => {
     reset,
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log("Formular sendt med React Hook Form", data);
-    alert("Du er nu logget ind!");
-    reset();
+  const onSubmit = async (data) => {
+    try {
+      const response = await fetch("http://localhost:8000/api/login.php", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+        credentials: "include", // for PHP session cookies
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        alert("Du er nu logget ind!");
+        reset();
+        // Optionally redirect or update UI
+      } else {
+        alert(result.message || "Login mislykkedes.");
+      }
+    } catch (error) {
+      alert("Noget gik galt. Prøv igen senere.");
+      console.error(error);
+    }
   };
 
   return (

@@ -22,7 +22,7 @@ const PasswordResetForm = () => {
       action="submit"
     >
       <h2 className={styles.formHeader}>Nulstill din adgangskode:</h2>
-      {/* INPUT EMAIL */}
+      {/* INPUT TOKEN */}
       <input
         {...register("email", {
           required: "Email er påkrævet",

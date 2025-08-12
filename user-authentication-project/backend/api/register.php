@@ -30,7 +30,7 @@ $password = $input['password'];
 
 if (strlen($username) < 3 || strlen($password) < 6) {
     http_response_code(400);
-    echo json_encode(['error' => 'Username must be at least 3 characters and password at least 6 characters.']);
+    echo json_encode(['error' => 'Username must be at least 3 characters and password at least 8 characters.']);
     exit;
 }
 

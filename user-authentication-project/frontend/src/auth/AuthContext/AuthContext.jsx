@@ -1,4 +1,5 @@
-import { createContext, useContext, useState, useEffect } from "react";
+import React, { createContext, useContext, useState, useEffect } from "react";
+import styles from "./AuthContext.module.css";
 
 // Create the authentication context
 const AuthContext = createContext();
@@ -27,7 +28,7 @@ export const AuthProvider = ({ children }) => {
   const checkAuthStatus = async () => {
     try {
       setLoading(true);
-      const response = await fetch("/api/user", {
+      const response = await fetch("http://localhost:8000/api/user.php", {
         method: "GET",
         credentials: "include", // Include cookies for session-based auth
         headers: {
@@ -53,22 +54,22 @@ export const AuthProvider = ({ children }) => {
   };
 
   // Login function
-  const login = async (username, password) => {
+  const login = async (email, password) => {
     try {
       setLoading(true);
-      const response = await fetch("/api/login", {
+      const response = await fetch("http://localhost:8000/api/login.php", {
         method: "POST",
         credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({ email, password }),
       });
 
       const data = await response.json();
 
-      if (response.ok) {
-        setUser(data.user);
+      if (response.ok && data.success) {
+        setUser(data.user || { email }); // Use the user data from your PHP response
         setIsAuthenticated(true);
         return { success: true, message: data.message };
       } else {
@@ -86,7 +87,7 @@ export const AuthProvider = ({ children }) => {
   const register = async (username, email, password) => {
     try {
       setLoading(true);
-      const response = await fetch("/api/register", {
+      const response = await fetch("http://localhost:8000/api/register.php", {
         method: "POST",
         credentials: "include",
         headers: {
@@ -120,7 +121,7 @@ export const AuthProvider = ({ children }) => {
   const logout = async () => {
     try {
       setLoading(true);
-      await fetch("/api/logout", {
+      await fetch("http://localhost:8000/api/logout.php", {
         method: "POST",
         credentials: "include",
         headers: {
@@ -206,85 +207,32 @@ export const AuthProvider = ({ children }) => {
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 
-// CSS Modules styles
-const styles = {
-  container: {
-    padding: "1.5rem",
-    maxWidth: "28rem",
-    margin: "0 auto",
-    backgroundColor: "white",
-    borderRadius: "0.5rem",
-    boxShadow:
-      "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
-  },
-  loading: {
-    padding: "1rem",
-  },
-  title: {
-    fontSize: "1.25rem",
-    fontWeight: "bold",
-    marginBottom: "1rem",
-  },
-  userInfo: {
-    display: "flex",
-    flexDirection: "column",
-    gap: "0.75rem",
-  },
-  loggedInText: {
-    color: "#059669",
-  },
-  emailText: {
-    fontSize: "0.875rem",
-    color: "#4b5563",
-  },
-  logoutButton: {
-    width: "100%",
-    backgroundColor: "#ef4444",
-    color: "white",
-    padding: "0.5rem 1rem",
-    borderRadius: "0.25rem",
-    border: "none",
-    cursor: "pointer",
-    transition: "background-color 0.2s",
-  },
-  loggedOutText: {
-    color: "#dc2626",
-  },
-  helpText: {
-    fontSize: "0.875rem",
-    color: "#4b5563",
-  },
-};
-
 // Example usage component to demonstrate the context
 const AuthDemo = () => {
-  const { user, isAuthenticated, loading, login, logout } = useAuth();
+  const { user, isAuthenticated, loading, logout } = useAuth();
 
   if (loading) {
-    return <div style={styles.loading}>Loading...</div>;
+    return <div className={styles.loading}>Loading...</div>;
   }
 
   return (
-    <div style={styles.container}>
-      <h2 style={styles.title}>Authentication Status</h2>
+    <div className={styles.container}>
+      <h2 className={styles.title}>Authentication Status</h2>
 
       {isAuthenticated ? (
-        <div style={styles.userInfo}>
-          <p style={styles.loggedInText}>✓ Logged in as: {user?.username}</p>
-          <p style={styles.emailText}>Email: {user?.email}</p>
-          <button
-            onClick={logout}
-            style={styles.logoutButton}
-            onMouseEnter={(e) => (e.target.style.backgroundColor = "#dc2626")}
-            onMouseLeave={(e) => (e.target.style.backgroundColor = "#ef4444")}
-          >
+        <div className={styles.userInfo}>
+          <p className={styles.loggedInText}>
+            ✓ Logged in as: {user?.username}
+          </p>
+          <p className={styles.emailText}>Email: {user?.email}</p>
+          <button onClick={logout} className={styles.logoutButton}>
             Logout
           </button>
         </div>
       ) : (
-        <div style={styles.userInfo}>
-          <p style={styles.loggedOutText}>✗ Not logged in</p>
-          <p style={styles.helpText}>Use your login form to authenticate</p>
+        <div className={styles.userInfo}>
+          <p className={styles.loggedOutText}>✗ Not logged in</p>
+          <p className={styles.helpText}>Use your login form to authenticate</p>
         </div>
       )}
     </div>

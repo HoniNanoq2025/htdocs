@@ -1,0 +1,234 @@
+/* ProtectedRoute.module.css */
+
+.loadingContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.spinner {
+  width: 3rem;
+  height: 3rem;
+  border: 2px solid #e5e7eb;
+  border-top: 2px solid #3b82f6;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loadingText {
+  margin-left: 0.75rem;
+  color: #4b5563;
+  font-size: 0.875rem;
+}
+
+.accessDeniedContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #f9fafb;
+}
+
+.accessDeniedCard {
+  max-width: 28rem;
+  width: 100%;
+  background-color: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.iconContainer {
+  margin-bottom: 1rem;
+}
+
+.lockIcon {
+  margin: 0 auto;
+  height: 4rem;
+  width: 4rem;
+  color: #ef4444;
+}
+
+.warningIcon {
+  margin: 0 auto;
+  height: 4rem;
+  width: 4rem;
+  color: #f59e0b;
+}
+
+.accessDeniedTitle {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #111827;
+  margin-bottom: 0.5rem;
+}
+
+.accessDeniedText {
+  color: #4b5563;
+  margin-bottom: 1rem;
+  line-height: 1.5;
+}
+
+.loginButton {
+  display: inline-block;
+  background-color: #3b82f6;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border: none;
+}
+
+.loginButton:hover {
+  background-color: #2563eb;
+}
+
+.loginButton:active {
+  background-color: #1d4ed8;
+}
+
+.goBackButton {
+  display: inline-block;
+  background-color: #6b7280;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border: none;
+}
+
+.goBackButton:hover {
+  background-color: #4b5563;
+}
+
+.goBackButton:active {
+  background-color: #374151;
+}
+
+/* Demo styles */
+.demoContainer {
+  padding: 1.5rem;
+  max-width: 42rem;
+  margin: 0 auto;
+}
+
+.demoTitle {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  color: #1f2937;
+}
+
+.exampleSection {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.exampleCard {
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  padding: 1rem;
+}
+
+.exampleTitle {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #1f2937;
+}
+
+.protectedContent {
+  background-color: #ecfdf5;
+  border: 1px solid #bbf7d0;
+  border-radius: 0.25rem;
+  padding: 0.75rem;
+}
+
+.protectedText {
+  color: #065f46;
+  margin: 0;
+}
+
+.protectedSubtext {
+  font-size: 0.875rem;
+  color: #047857;
+  margin: 0.25rem 0 0 0;
+}
+
+.adminContent {
+  background-color: #faf5ff;
+  border: 1px solid #e9d5ff;
+  border-radius: 0.25rem;
+  padding: 0.75rem;
+}
+
+.adminText {
+  color: #581c87;
+  margin: 0;
+}
+
+.adminSubtext {
+  font-size: 0.875rem;
+  color: #7c3aed;
+  margin: 0.25rem 0 0 0;
+}
+
+.publicContent {
+  background-color: #eff6ff;
+  border: 1px solid #bfdbfe;
+  border-radius: 0.25rem;
+  padding: 0.75rem;
+}
+
+.publicText {
+  color: #1e40af;
+  margin: 0;
+}
+
+.publicSubtext {
+  font-size: 0.875rem;
+  color: #2563eb;
+  margin: 0.25rem 0 0 0;
+}
+
+.codeSection {
+  margin-top: 2rem;
+  padding: 1rem;
+  background-color: #f9fafb;
+  border-radius: 0.5rem;
+}
+
+.codeTitle {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #1f2937;
+}
+
+.codeBlock {
+  font-size: 0.875rem;
+  color: #4b5563;
+  white-space: pre-wrap;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  background-color: white;
+  padding: 0.75rem;
+  border-radius: 0.25rem;
+  border: 1px solid #e5e7eb;
+  overflow-x: auto;
+  margin: 0;
+}

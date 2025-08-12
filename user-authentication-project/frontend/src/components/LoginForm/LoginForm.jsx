@@ -1,5 +1,6 @@
 import styles from "./LoginForm.module.css";
 import { useForm } from "react-hook-form";
+import { useAuth } from "./AuthContext";
 
 const LoginForm = () => {
   const {
@@ -9,39 +10,25 @@ const LoginForm = () => {
     reset,
   } = useForm();
 
+  const { login, loading } = useAuth();
+
   const onSubmit = async (data) => {
-    try {
-      const response = await fetch("http://localhost:8000/api/login.php", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-        credentials: "include", // for PHP session cookies
-      });
+    const result = await login(data.email, data.password);
 
-      const result = await response.json();
-
-      if (result.success) {
-        alert("Du er nu logget ind!");
-        reset();
-        // Optionally redirect or update UI
-      } else {
-        alert(result.message || "Login mislykkedes.");
-      }
-    } catch (error) {
-      alert("Noget gik galt. Prøv igen senere.");
-      console.error(error);
+    if (result.success) {
+      alert("Du er nu logget ind!");
+      reset();
+      window.location.href = "/dashboard";
+    } else {
+      alert(result.message || "Login mislykkedes.");
     }
   };
 
   return (
-    <form
-      className={styles.form}
-      onSubmit={handleSubmit(onSubmit)}
-      action="submit"
-    >
+    <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
       <h2 className={styles.formHeader}>Login</h2>
+
+      {/* Your existing input fields stay exactly the same */}
       <input
         {...register("email", {
           required: "Email er påkrævet",
@@ -82,8 +69,8 @@ const LoginForm = () => {
         </p>
       )}
 
-      <button type="submit" className={styles.submitBtn}>
-        Login
+      <button type="submit" className={styles.submitBtn} disabled={loading}>
+        {loading ? "Logger ind..." : "Login"}
       </button>
     </form>
   );

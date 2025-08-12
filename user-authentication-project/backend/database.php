@@ -21,7 +21,7 @@ class Database {
             // Enable foreign key support
             $this->db->exec("PRAGMA foreign_keys = ON");
             
-            echo "Database connected successfully!\n";
+            /* echo "Database connected successfully!\n"; */
         } catch(PDOException $e) {
             die("Connection failed: " . $e->getMessage());
         }
@@ -42,7 +42,7 @@ class Database {
         
         try {
             $this->db->exec($sql);
-            echo "Users table created successfully!\n";
+            /* echo "Users table created successfully!\n"; */
         } catch(PDOException $e) {
             die("Error creating table: " . $e->getMessage());
         }
@@ -64,7 +64,7 @@ class Database {
         }
         $this->connect();
         $this->createTables();
-        echo "Database reset successfully!\n";
+        /* echo "Database reset successfully!\n"; */
     }
 }
 

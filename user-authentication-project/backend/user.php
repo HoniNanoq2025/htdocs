@@ -1,7 +1,8 @@
 <?php
 // user.php - User authentication class
 
-require_once 'cors.php'; // Include CORS configuration
+require_once __DIR__ . '/cors.php'; // Include CORS configuration
+session_start(); 
 
 require_once 'database.php';
 
@@ -191,4 +192,26 @@ print_r($result);
 $result = $user->resetPassword($token, 'newpassword123');
 print_r($result);
 */
+
+// If this is an API call to get the currently logged-in user
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    header('Content-Type: application/json');
+
+    if (isset($_SESSION['user_id'])) {
+        $user = new User();
+        $userData = $user->getUserById($_SESSION['user_id']);
+
+        if ($userData) {
+            echo json_encode($userData);
+        } else {
+            http_response_code(404);
+            echo json_encode(["message" => "User not found"]);
+        }
+    } else {
+        http_response_code(401);
+        echo json_encode(["message" => "Access Denied"]);
+    }
+
+    exit(); // Prevent the rest of the file from executing
+}
 ?>

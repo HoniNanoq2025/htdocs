@@ -1,6 +1,6 @@
 <?php
 // backend/api/register.php
-require_once __DIR__ . '/../cors.php'; // Include CORS configuration
+require_once(__DIR__ . '/../cors.php'); // Include CORS configuration
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);

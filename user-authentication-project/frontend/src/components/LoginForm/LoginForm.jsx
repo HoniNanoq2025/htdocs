@@ -1,6 +1,6 @@
 import styles from "./LoginForm.module.css";
 import { useForm } from "react-hook-form";
-import { useAuth } from "./AuthContext";
+import { useAuth } from "../../auth/AuthContext/AuthContext";
 
 const LoginForm = () => {
   const {

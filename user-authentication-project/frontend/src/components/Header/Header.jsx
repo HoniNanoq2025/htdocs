@@ -54,6 +54,11 @@ export default function Header() {
           >
             Contact
           </NavLink>
+          <NavLink
+            to="/login"
+            className={styles.mobileLink}
+            onClick={handleLinkClick}
+          />
         </nav>
       </div>
     </header>

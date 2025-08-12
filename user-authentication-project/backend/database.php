@@ -3,7 +3,7 @@
 
 class Database {
     private $db;
-    private $dbFile = 'auth.db';
+    private $dbFile = __DIR__ . '/auth.db';
     
     public function __construct() {
         $this->connect();

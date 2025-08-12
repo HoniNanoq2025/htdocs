@@ -1,0 +1,109 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  background-color: #1c1c1c;
+  color: white;
+  position: relative;
+  z-index: 10;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.desktopNav {
+  display: flex;
+  gap: 2rem;
+}
+
+.link {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  transition: 0.2s;
+}
+
+.link:hover,
+link.active {
+  border-bottom: 2px solid white;
+}
+
+.burgerIcon {
+  display: none;
+  cursor: pointer;
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(28, 28, 28, 0.98);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+  z-index: 1000;
+}
+
+.show {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: all;
+}
+
+.closeIcon {
+  position: absolute;
+  top: 1.2rem;
+  right: 1.5rem;
+  color: white;
+  cursor: pointer;
+}
+
+.mobileNav {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  align-items: center;
+}
+
+.mobileLink {
+  color: white;
+  text-decoration: none;
+  font-size: 1.8rem;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.mobileLink:hover,
+.mobileLink.active {
+  color: skyblue;
+  text-decoration: underline;
+}
+
+@media (max-width: 992px) {
+  .desktopNav {
+    display: none;
+  }
+
+  .burgerIcon {
+    display: block;
+    cursor: pointer;
+  }
+}
+
+@media (min-width: 993px) {
+  .burgerIcon {
+    display: none;
+  }
+
+  .overlay {
+    display: none;
+  }
+}

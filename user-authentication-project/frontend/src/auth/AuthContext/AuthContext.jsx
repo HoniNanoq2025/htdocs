@@ -28,18 +28,31 @@ export const AuthProvider = ({ children }) => {
   const checkAuthStatus = async () => {
     try {
       setLoading(true);
-      const response = await fetch("http://localhost:8000/api/user.php", {
+      const response = await fetch("http://localhost:8000/user.php", {
         method: "GET",
-        credentials: "include", // Include cookies for session-based auth
+        credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },
       });
 
       if (response.ok) {
-        const userData = await response.json();
-        setUser(userData);
-        setIsAuthenticated(true);
+        const text = await response.text(); // get raw text first
+        if (text) {
+          try {
+            const userData = JSON.parse(text);
+            setUser(userData);
+            setIsAuthenticated(true);
+          } catch (jsonError) {
+            console.error("Failed to parse JSON:", jsonError);
+            setUser(null);
+            setIsAuthenticated(false);
+          }
+        } else {
+          // Empty response body
+          setUser(null);
+          setIsAuthenticated(false);
+        }
       } else {
         setUser(null);
         setIsAuthenticated(false);

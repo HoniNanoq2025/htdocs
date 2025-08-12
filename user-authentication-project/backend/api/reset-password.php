@@ -1,9 +1,6 @@
 <?php
 // reset-password.php - API endpoint for handling password reset requests
 require_once 'cors.php'; // Include CORS configuration
-header("Access-Control-Allow-Origin: http://localhost:5173");
-header('Access-Control-Allow-Methods: POST, GET, OPTIONS');
-header('Access-Control-Allow-Headers: Content-Type');
 header("Content-Type: application/json");
 
 // Get JSON input
@@ -16,7 +13,9 @@ if (!$token || !$newPassword || strlen($newPassword) < 6) {
     exit;
 }
 
-require 'db.php';
+require_once('../database.php'); // Include the SQLite Database class
+$db = new Database();
+$pdo = $db->getConnection();
 
 // Look up the token
 $stmt = $pdo->prepare("SELECT user_id, expires_at FROM password_resets WHERE token = ?");

@@ -1,11 +1,9 @@
 <?php
-// backend/api/login.php
-require_once(__DIR__ . '/../cors.php');;
-
+require_once(__DIR__ . '/../cors.php');
 session_start();
 header("Content-Type: application/json");
 
-// Allow JSON input
+// Get input
 $input = json_decode(file_get_contents("php://input"), true);
 $email = trim($input['email'] ?? '');
 $password = $input['password'] ?? '';
@@ -15,17 +13,19 @@ if (!$email || !$password) {
     exit;
 }
 
-// DB connection
-require 'db.php'; // Make sure this connects to your DB
+// Use your SQLite Database class
+require_once('../database.php');
 
-// Find user by email
-$stmt = $pdo->prepare("SELECT id, password FROM users WHERE email = ?");
+$db = new Database();
+$pdo = $db->getConnection();
+
+// Prepare and execute query
+$stmt = $pdo->prepare("SELECT id, password_hash FROM users WHERE email = ?");
 $stmt->execute([$email]);
 $user = $stmt->fetch();
 
-if ($user && password_verify($password, $user['password'])) {
+if ($user && password_verify($password, $user['password_hash'])) {
     $_SESSION['user_id'] = $user['id'];
-
     echo json_encode(["success" => true, "message" => "Login lykkedes."]);
 } else {
     echo json_encode(["success" => false, "message" => "Forkert email eller adgangskode."]);

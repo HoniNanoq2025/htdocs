@@ -1,11 +1,6 @@
 <?php
 // backend/api/register.php
-require_once 'cors.php'; // Include CORS configuration
-
-header('Content-Type: application/json');
-header('Access-Control-Allow-Origin: http://localhost:5173'); // For testing only
-header('Access-Control-Allow-Methods: POST');
-header('Access-Control-Allow-Headers: Content-Type');
+require_once __DIR__ . '/../cors.php'; // Include CORS configuration
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);

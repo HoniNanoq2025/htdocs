@@ -1,6 +1,6 @@
 <?php
 // reset-password.php - API endpoint for handling password reset requests
-require_once 'cors.php'; // Include CORS configuration
+require_once(__DIR__ . '/../cors.php'); // Include CORS configuration
 session_start();
 header("Content-Type: application/json");
 

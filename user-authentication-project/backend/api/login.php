@@ -1,5 +1,8 @@
 <?php
-header('Access-Control-Allow-Origin: http://localhost:3000');
+// backend/api/login.php
+require_once 'cors.php';
+
+header('Access-Control-Allow-Origin: http://localhost:5173');
 header('Access-Control-Allow-Methods: POST, GET, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type');
 session_start();

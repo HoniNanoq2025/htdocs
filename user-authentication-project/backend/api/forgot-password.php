@@ -1,5 +1,8 @@
 <?php
-header("Access-Control-Allow-Origin: http://localhost:3000");
+// forgot-password.php - API endpoint for handling forgot password requests
+require_once 'cors.php'; // Include CORS configuration
+
+header("Access-Control-Allow-Origin: http://localhost:5173");
 header('Access-Control-Allow-Methods: POST, GET, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type');
 header("Content-Type: application/json");
@@ -14,3 +17,4 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 
 // ... DB logic and email sending ...
 echo json_encode(["message" => "Hvis din email findes i vores system, vil du modtage et link til at nulstille din adgangskode."]);
+?>

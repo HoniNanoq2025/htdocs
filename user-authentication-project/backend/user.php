@@ -1,6 +1,8 @@
 <?php
 // user.php - User authentication class
 
+require_once 'cors.php'; // Include CORS configuration
+
 require_once 'database.php';
 
 class User {

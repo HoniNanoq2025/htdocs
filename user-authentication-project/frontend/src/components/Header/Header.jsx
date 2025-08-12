@@ -58,7 +58,16 @@ export default function Header() {
             to="/login"
             className={styles.mobileLink}
             onClick={handleLinkClick}
-          />
+          >
+            Login
+          </NavLink>
+          <NavLink
+            to="/register"
+            className={styles.mobileLink}
+            onClick={handleLinkClick}
+          >
+            Register
+          </NavLink>
         </nav>
       </div>
     </header>

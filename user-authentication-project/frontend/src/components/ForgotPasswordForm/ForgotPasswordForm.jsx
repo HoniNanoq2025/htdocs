@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { useAuth } from "../../auth/AuthContext/AuthContext";
+import styles from "./ForgotPasswordForm.module.css";
 
 function ForgotPasswordForm() {
   const {

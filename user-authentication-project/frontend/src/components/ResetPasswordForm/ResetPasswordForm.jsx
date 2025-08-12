@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { useState } from "react";
-import styles from "./PasswordResetForm.module.css";
+import styles from "./ResetPasswordForm.module.css";
 
 const PasswordResetForm = () => {
   const {

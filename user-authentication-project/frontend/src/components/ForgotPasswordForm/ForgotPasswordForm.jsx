@@ -1,5 +1,6 @@
 import { useForm } from "react-hook-form";
 import { useState } from "react";
+import { useAuth } from "../../auth/AuthContext/AuthContext";
 
 function ForgotPasswordForm() {
   const {
@@ -8,21 +9,11 @@ function ForgotPasswordForm() {
     formState: { errors },
   } = useForm();
   const [message, setMessage] = useState("");
+  const { forgotPassword, loading } = useAuth();
 
   const onSubmit = async (data) => {
     try {
-      const response = await fetch(
-        "http://localhost:8000/api/forgot-password.php",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-        }
-      );
-
-      const result = await response.json();
+      const result = await forgotPassword(data.email);
       setMessage(result.message);
     } catch (error) {
       setMessage("Noget gik galt. Prøv venligst igen.");
@@ -48,7 +39,9 @@ function ForgotPasswordForm() {
         {errors.email && <p style={{ color: "red" }}>{errors.email.message}</p>}
       </div>
 
-      <button type="submit">Nulstil Adgangskode</button>
+      <button type="submit" disabled={loading}>
+        {loading ? "Sender..." : "Nulstil Adgangskode"}
+      </button>
 
       {message && <p>{message}</p>}
     </form>

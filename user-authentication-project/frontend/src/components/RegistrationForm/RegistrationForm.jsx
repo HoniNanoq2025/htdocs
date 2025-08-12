@@ -1,4 +1,5 @@
 import { useForm } from "react-hook-form";
+import { useAuth } from "../../auth/AuthContext/AuthContext";
 import styles from "./RegistrationForm.module.css";
 
 const RegistrationForm = () => {
@@ -9,10 +10,26 @@ const RegistrationForm = () => {
     reset,
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log("Formular sendt med React Hook Form", data);
-    alert("Du er nu registreret!");
-    reset();
+  const { register: registerUser, loading } = useAuth();
+
+  const onSubmit = async (data) => {
+    try {
+      const result = await registerUser(
+        data.username,
+        data.email,
+        data.password
+      );
+
+      if (result.success) {
+        alert("Du er nu registreret!");
+        reset();
+        window.location.href = "/dashboard"; // Redirect to dashboard after successful registration
+      } else {
+        alert(result.message || "Registrering mislykkedes.");
+      }
+    } catch (error) {
+      alert("Der opstod en fejl. Prøv venligst igen.");
+    }
   };
 
   return (
@@ -45,7 +62,7 @@ const RegistrationForm = () => {
           required: "Brugernavn er påkrævet",
           minLength: {
             value: 3,
-            message: "Brugernavnet skal indeholde mindst 6 tegn",
+            message: "Brugernavnet skal indeholde mindst 3 tegn",
           },
         })}
         type="text"
@@ -100,8 +117,8 @@ const RegistrationForm = () => {
         </p>
       )}
 
-      <button type="submit" className={styles.submitBtn}>
-        Registrer
+      <button type="submit" className={styles.submitBtn} disabled={loading}>
+        {loading ? "Registrerer..." : "Registrer"}
       </button>
     </form>
   );

@@ -141,13 +141,16 @@ export const AuthProvider = ({ children }) => {
   const forgotPassword = async (email) => {
     try {
       setLoading(true);
-      const response = await fetch("/api/forgot-password", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email }),
-      });
+      const response = await fetch(
+        "http://localhost:8000/api/forgot-password.php",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email }),
+        }
+      );
 
       const data = await response.json();
       return {
@@ -168,13 +171,16 @@ export const AuthProvider = ({ children }) => {
   const resetPassword = async (token, newPassword) => {
     try {
       setLoading(true);
-      const response = await fetch("/api/reset-password", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ token, password: newPassword }),
-      });
+      const response = await fetch(
+        "http://localhost:8000/api/reset-password.php",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ token, password: newPassword }),
+        }
+      );
 
       const data = await response.json();
       return {

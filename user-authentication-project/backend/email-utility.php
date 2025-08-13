@@ -143,7 +143,7 @@ Sent at: " . date('Y-m-d H:i:s') . "
         file_put_contents($logFile, $logMessage, FILE_APPEND | LOCK_EX);
         
         error_log("Email logged to: $logFile");
-error_log("Reset link: $resetLink");
+        error_log("Reset link: $resetLink");
         error_log("Token: $token");
     }
     

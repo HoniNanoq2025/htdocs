@@ -28,7 +28,8 @@ class Database {
     }
     
     private function createTables() {
-        $sql = "
+        // Users table
+        $usersSql = "
             CREATE TABLE IF NOT EXISTS users (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 username TEXT UNIQUE NOT NULL,
@@ -40,11 +41,24 @@ class Database {
             )
         ";
         
+        // Password resets table for more secure token management
+        $resetsSql = "
+            CREATE TABLE IF NOT EXISTS password_resets (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                user_id INTEGER NOT NULL,
+                token TEXT UNIQUE NOT NULL,
+                expires_at DATETIME NOT NULL,
+                created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+                FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+            )
+        ";
+        
         try {
-            $this->db->exec($sql);
-            /* echo "Users table created successfully!\n"; */
+            $this->db->exec($usersSql);
+            $this->db->exec($resetsSql);
+            /* echo "Tables created successfully!\n"; */
         } catch(PDOException $e) {
-            die("Error creating table: " . $e->getMessage());
+            die("Error creating tables: " . $e->getMessage());
         }
     }
     
@@ -65,6 +79,18 @@ class Database {
         $this->connect();
         $this->createTables();
         /* echo "Database reset successfully!\n"; */
+    }
+    
+    // Clean up expired reset tokens
+    public function cleanupExpiredTokens() {
+        try {
+            $sql = "DELETE FROM password_resets WHERE expires_at <= CURRENT_TIMESTAMP";
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute();
+        } catch(PDOException $e) {
+            // Log error but don't break the application
+            error_log("Error cleaning up expired tokens: " . $e->getMessage());
+        }
     }
 }
 

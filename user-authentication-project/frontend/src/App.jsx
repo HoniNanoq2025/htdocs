@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import { ProtectedRoute } from "./auth/ProtectedRoute/ProtectedRoute";
-import { AuthProvider } from "./auth/AuthContext/AuthContext";
+
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
@@ -18,7 +18,6 @@ export default function App() {
     <div className={styles.app}>
       <Header />
       <main className={styles.main}>
-        <AuthProvider>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
@@ -45,7 +44,6 @@ export default function App() {
               }
             />
           </Routes>
-        </AuthProvider>
       </main>
       <Footer />
     </div>

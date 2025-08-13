@@ -19,7 +19,7 @@ const LoginForm = () => {
     if (result.success) {
       alert("Du er nu logget ind!");
       reset();
-      window.location.href = "/dashboard";
+      window.location.href = "/profile";
     } else {
       alert(result.message || "Login mislykkedes.");
     }

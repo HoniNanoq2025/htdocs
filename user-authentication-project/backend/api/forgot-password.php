@@ -6,6 +6,12 @@ session_start();
 
 header("Content-Type: application/json");
 
+// ✅ Handle preflight OPTIONS request for CORS
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(200);
+    exit;
+}
+
 // Only allow POST requests
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);
@@ -53,40 +59,13 @@ try {
         $stmt->execute([$user['id'], $token, $expiresAt]);
         
         // Step 4: Send email with reset link
-        $resetLink = "http://localhost:5173/reset-password?token=" . urlencode($token);
+        require_once(__DIR__ . '/../email-utility.php');
+        $emailUtil = new EmailUtility('noreply@yoursite.com', 'Your Site', true); // true = development mode
         
-        // For development, we'll log the reset link instead of sending email
-        // In production, you'd use a proper email service like PHPMailer, SendGrid, etc.
-        error_log("Password reset link for {$email}: {$resetLink}");
+        $emailResult = $emailUtil->sendPasswordResetEmail($email, $user['username'], $token);
         
-        // Simple email sending (you should replace this with a proper email service)
-        $subject = "Nulstil din adgangskode";
-        $message = "
-            <html>
-            <head>
-                <title>Nulstil din adgangskode</title>
-            </head>
-            <body>
-                <h2>Nulstil din adgangskode</h2>
-                <p>Hej {$user['username']},</p>
-                <p>Du har anmodet om at nulstille din adgangskode. Klik på linket nedenfor for at nulstille den:</p>
-                <p><a href='{$resetLink}'>Nulstil adgangskode</a></p>
-                <p>Dette link udløber om 1 time.</p>
-                <p>Hvis du ikke har anmodet om dette, kan du ignorere denne email.</p>
-            </body>
-            </html>
-        ";
-        
-        $headers = "MIME-Version: 1.0" . "\r\n";
-        $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-        $headers .= "From: noreply@yoursite.com" . "\r\n";
-        
-        // Uncomment the line below to actually send emails (make sure mail() is configured)
-        // mail($email, $subject, $message, $headers);
-        
-        // Log for development
-        error_log("Password reset email would be sent to: {$email}");
-        error_log("Reset token: {$token}");
+        // Log the result
+        error_log("Email send result for {$email}: " . ($emailResult['success'] ? 'SUCCESS' : 'FAILED') . " - " . $emailResult['message']);
     }
     
     // Step 5: Always return the same generic response to prevent account enumeration

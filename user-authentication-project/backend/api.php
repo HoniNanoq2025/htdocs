@@ -46,7 +46,9 @@ switch ($path) {
         
     case '/api/forgot-password':
         if ($requestMethod === 'POST') {
-            handleForgotPassword($user);
+            // Include the dedicated forgot-password.php file
+            include __DIR__ . '/api/forgot-password.php';
+            exit(); // Prevent further execution
         } else {
             sendError('Method not allowed', 405);
         }
@@ -54,7 +56,9 @@ switch ($path) {
         
     case '/api/reset-password':
         if ($requestMethod === 'POST') {
-            handleResetPassword($user);
+            // Include the dedicated reset-password.php file
+            include __DIR__ . '/api/reset-password.php';
+            exit(); // Prevent further execution
         } else {
             sendError('Method not allowed', 405);
         }
@@ -107,40 +111,6 @@ function handleLogin($user) {
         $_SESSION['user_id'] = $result['user']['id'];
         $_SESSION['username'] = $result['user']['username'];
         
-        sendResponse($result);
-    } else {
-        sendError($result['message']);
-    }
-}
-
-function handleForgotPassword($user) {
-    $input = json_decode(file_get_contents('php://input'), true);
-    
-    if (!isset($input['email'])) {
-        sendError('Email is required');
-        return;
-    }
-    
-    $result = $user->requestPasswordReset($input['email']);
-    
-    if ($result['success']) {
-        sendResponse($result);
-    } else {
-        sendError($result['message']);
-    }
-}
-
-function handleResetPassword($user) {
-    $input = json_decode(file_get_contents('php://input'), true);
-    
-    if (!isset($input['token']) || !isset($input['password'])) {
-        sendError('Token and password are required');
-        return;
-    }
-    
-    $result = $user->resetPassword($input['token'], $input['password']);
-    
-    if ($result['success']) {
         sendResponse($result);
     } else {
         sendError($result['message']);

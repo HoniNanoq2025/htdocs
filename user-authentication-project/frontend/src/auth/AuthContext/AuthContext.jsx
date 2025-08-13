@@ -53,12 +53,23 @@ export const AuthProvider = ({ children }) => {
           setUser(null);
           setIsAuthenticated(false);
         }
+      } else if (response.status === 401) {
+        // 401 is expected when not logged in - don't log as error
+        setUser(null);
+        setIsAuthenticated(false);
       } else {
+        // Other errors (500, network issues, etc.)
+        console.error(
+          "Unexpected auth check error:",
+          response.status,
+          response.statusText
+        );
         setUser(null);
         setIsAuthenticated(false);
       }
     } catch (error) {
-      console.error("Auth check failed:", error);
+      // Only log actual network/connection errors
+      console.error("Auth check network error:", error);
       setUser(null);
       setIsAuthenticated(false);
     } finally {
@@ -70,13 +81,16 @@ export const AuthProvider = ({ children }) => {
   const login = async (email, password) => {
     try {
       setLoading(true);
+
+      // Use the API router instead of direct file access
       const response = await fetch("http://localhost:8000/api/login.php", {
         method: "POST",
         credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email, password }),
+        // Your backend expects 'username' field for login (can be email or username)
+        body: JSON.stringify({ username: email, password }),
       });
 
       const data = await response.json();
@@ -100,7 +114,9 @@ export const AuthProvider = ({ children }) => {
   const register = async (username, email, password) => {
     try {
       setLoading(true);
-      const response = await fetch("http://localhost:8000/api/register.php", {
+
+      // Use the API router instead of direct file access
+      const response = await fetch("http://localhost:8000/api/register", {
         method: "POST",
         credentials: "include",
         headers: {
@@ -111,15 +127,16 @@ export const AuthProvider = ({ children }) => {
 
       const data = await response.json();
 
-      if (response.ok) {
-        // Optionally auto-login after registration
-        setUser(data.user);
-        setIsAuthenticated(true);
-        return { success: true, message: data.message };
+      if (response.ok && data.success) {
+        // Don't auto-login after registration, let user login manually
+        return {
+          success: true,
+          message: data.message || "Registration successful",
+        };
       } else {
         return {
           success: false,
-          message: data.message || "Registration failed",
+          message: data.message || data.error || "Registration failed",
         };
       }
     } catch (error) {
@@ -154,6 +171,8 @@ export const AuthProvider = ({ children }) => {
   const forgotPassword = async (email) => {
     try {
       setLoading(true);
+
+      // Use the API router - remove .php extension
       const response = await fetch(
         "http://localhost:8000/api/forgot-password.php",
         {
@@ -161,13 +180,30 @@ export const AuthProvider = ({ children }) => {
           headers: {
             "Content-Type": "application/json",
           },
+          credentials: "include",
           body: JSON.stringify({ email }),
         }
       );
 
-      const data = await response.json();
+      // Instead of assuming it's valid JSON:
+      const text = await response.text();
+      console.log("Forgot password raw response:", text);
+
+      let data;
+      try {
+        data = JSON.parse(text);
+      } catch (e) {
+        console.error("JSON parse error:", e, text);
+        return {
+          success: false,
+          message: "Server response was not valid JSON",
+        };
+      }
+
+      // Your backend always returns success: true for security (prevent enumeration)
+      // So check the actual success field from the response
       return {
-        success: response.ok,
+        success: data.success || response.ok,
         message:
           data.message ||
           (response.ok ? "Reset email sent" : "Failed to send reset email"),
@@ -184,20 +220,21 @@ export const AuthProvider = ({ children }) => {
   const resetPassword = async (token, newPassword) => {
     try {
       setLoading(true);
-      const response = await fetch(
-        "http://localhost:8000/api/reset-password.php",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ token, password: newPassword }),
-        }
-      );
+
+      // Use the API router - remove .php extension
+      const response = await fetch("http://localhost:8000/api/reset-password", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include", // Add credentials for session handling
+        body: JSON.stringify({ token, password: newPassword }),
+      });
 
       const data = await response.json();
+
       return {
-        success: response.ok,
+        success: data.success !== undefined ? data.success : response.ok,
         message:
           data.message ||
           (response.ok ? "Password reset successful" : "Password reset failed"),

@@ -142,8 +142,9 @@ Sent at: " . date('Y-m-d H:i:s') . "
         $logFile = __DIR__ . '/password_reset_emails.log';
         file_put_contents($logFile, $logMessage, FILE_APPEND | LOCK_EX);
         
-        echo "Email logged to: {$logFile}\n";
-        echo "Reset link: {$resetLink}\n";
+        error_log("Email logged to: $logFile");
+error_log("Reset link: $resetLink");
+        error_log("Token: $token");
     }
     
     /**

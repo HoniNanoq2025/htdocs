@@ -48,8 +48,7 @@ export default function Header() {
         ) : (
           <button
             onClick={handleLogout}
-            className={styles.link}
-            style={{ background: "none", border: "none", cursor: "pointer" }}
+            className={`${styles.link} ${styles.linkButton}`}
           >
             Logout
           </button>
@@ -115,12 +114,8 @@ export default function Header() {
             </>
           ) : (
             <button
-              onClick={() => {
-                handleLinkClick();
-                handleLogout();
-              }}
-              className={styles.mobileLink}
-              style={{ background: "none", border: "none", cursor: "pointer" }}
+              onClick={handleLogout}
+              className={`${styles.mobileLink} ${styles.mobileLinkButton}`}
             >
               Logout
             </button>

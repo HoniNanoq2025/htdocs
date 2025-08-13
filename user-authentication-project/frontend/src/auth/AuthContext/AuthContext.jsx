@@ -227,7 +227,7 @@ export const AuthProvider = ({ children }) => {
 };
 
 // Example usage component to demonstrate the context
-const AuthDemo = () => {
+export const AuthDemo = () => {
   const { user, isAuthenticated, loading, logout } = useAuth();
 
   if (loading) {

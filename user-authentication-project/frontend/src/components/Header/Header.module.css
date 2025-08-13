@@ -31,6 +31,19 @@ link.active {
   border-bottom: 2px solid white;
 }
 
+.linkButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+}
+
+.linkButton:hover {
+  border-bottom: 2px solid white;
+}
+
 .burgerIcon {
   display: none;
   cursor: pointer;
@@ -83,6 +96,21 @@ link.active {
 
 .mobileLink:hover,
 .mobileLink.active {
+  color: skyblue;
+  text-decoration: underline;
+}
+
+.mobileLinkButton {
+  background: #1c1c1c;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  font: inherit;
+  font-size: 1.8rem;
+  color: inherit;
+}
+
+.mobileLinkButton:hover {
   color: skyblue;
   text-decoration: underline;
 }

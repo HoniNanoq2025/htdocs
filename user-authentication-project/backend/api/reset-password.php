@@ -27,10 +27,10 @@ if (empty($token) || empty($newPassword)) {
     exit;
 }
 
-if (strlen($newPassword) < 6) {
+if (strlen($newPassword) < 8) {
     echo json_encode([
         "success" => false,
-        "message" => "Adgangskoden skal være mindst 6 tegn lang."
+        "message" => "Adgangskoden skal være mindst 8 tegn lang."
     ]);
     exit;
 }

@@ -222,14 +222,17 @@ export const AuthProvider = ({ children }) => {
       setLoading(true);
 
       // Use the API router - remove .php extension
-      const response = await fetch("http://localhost:8000/api/reset-password", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include", // Add credentials for session handling
-        body: JSON.stringify({ token, password: newPassword }),
-      });
+      const response = await fetch(
+        "http://localhost:8000/api/reset-password.php",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include", // Add credentials for session handling
+          body: JSON.stringify({ token, password: newPassword }),
+        }
+      );
 
       const data = await response.json();
 

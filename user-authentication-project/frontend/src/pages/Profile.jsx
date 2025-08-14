@@ -1,4 +1,5 @@
-import { AuthDemo, useAuth } from "../auth/AuthContext/AuthContext";
+import { AuthDemo } from "../auth/AuthContext/AuthContext";
+import NewPasswordForm from "../components/NewPasswordForm/NewPasswordForm";
 import styles from "./styles.module.css";
 
 export default function Profile() {

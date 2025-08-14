@@ -250,6 +250,54 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  // Change password function (for authenticated users)
+  const changePassword = async (currentPassword, newPassword) => {
+    try {
+      setLoading(true);
+
+      const response = await fetch(
+        "http://localhost:8000/api/new-password.php",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include", // Important: include session cookies
+          body: JSON.stringify({
+            currentPassword,
+            newPassword,
+          }),
+        }
+      );
+
+      const data = await response.json();
+
+      if (response.status === 401) {
+        // User is not authenticated, redirect to login
+        setUser(null);
+        setIsAuthenticated(false);
+        return {
+          success: false,
+          message: "Session expired. Please log in again.",
+        };
+      }
+
+      return {
+        success: data.success !== undefined ? data.success : response.ok,
+        message:
+          data.message ||
+          (response.ok
+            ? "Password changed successfully"
+            : "Password change failed"),
+      };
+    } catch (error) {
+      console.error("Change password error:", error);
+      return { success: false, message: "Network error occurred" };
+    } finally {
+      setLoading(false);
+    }
+  };
+
   // Context value
   const value = {
     user,
@@ -260,6 +308,7 @@ export const AuthProvider = ({ children }) => {
     logout,
     forgotPassword,
     resetPassword,
+    changePassword,
     checkAuthStatus,
   };
 

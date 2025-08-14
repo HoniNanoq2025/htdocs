@@ -63,6 +63,16 @@ switch ($path) {
             sendError('Method not allowed', 405);
         }
         break;
+    
+    case '/api/new-password':
+        if ($requestMethod === 'POST') {
+            // Include the dedicated new-password.php file
+            include __DIR__ . '/api/new-password.php';
+            exit(); // Prevent further execution
+        } else {
+            sendError('Method not allowed', 405);
+        }
+        break;
         
     case '/api/users':
         if ($requestMethod === 'GET') {

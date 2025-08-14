@@ -53,6 +53,7 @@ const NewPasswordForm = () => {
           {...register("currentPassword", {
             required: "Dette felt er påkrævet",
           })}
+          placeholder="Nuværende adgangskode"
         />
         {errors.currentPassword && (
           <span className={styles.error}>{errors.currentPassword.message}</span>
@@ -82,26 +83,28 @@ const NewPasswordForm = () => {
       </div>
 
       {/* CONFIRM NEW PASSWORD */}
-      <label htmlFor="confirmPassword">Bekræft Ny Adgangskode</label>
-      <input
-        {...register("confirmPassword", {
-          required: "Bekræft adgangskode er påkrævet",
-          validate: (value) =>
-            value === watch("newPassword") ||
-            "Adgangskoderne stemmer ikke overens",
-        })}
-        type="password"
-        placeholder="Bekræft ny adgangskode"
-        className={`${styles.input} ${
-          errors.confirmPassword ? styles.inputError : ""
-        }`}
-        aria-invalid={errors.confirmPassword ? "true" : "false"}
-      />
-      {errors.confirmPassword && (
-        <p role="alert" className={styles.errors}>
-          {errors.confirmPassword.message}
-        </p>
-      )}
+      <div className={styles.formGroup}>
+        <label htmlFor="confirmPassword">Bekræft Ny Adgangskode</label>
+        <input
+          {...register("confirmPassword", {
+            required: "Bekræft adgangskode er påkrævet",
+            validate: (value) =>
+              value === watch("newPassword") ||
+              "Adgangskoderne stemmer ikke overens",
+          })}
+          type="password"
+          placeholder="Bekræft ny adgangskode"
+          className={`${styles.input} ${
+            errors.confirmPassword ? styles.inputError : ""
+          }`}
+          aria-invalid={errors.confirmPassword ? "true" : "false"}
+        />
+        {errors.confirmPassword && (
+          <p role="alert" className={styles.errors}>
+            {errors.confirmPassword.message}
+          </p>
+        )}
+      </div>
       <button type="submit" disabled={loading} className={styles.submitButton}>
         {loading ? "Ændrer..." : "Skift Adgangskode"}
       </button>

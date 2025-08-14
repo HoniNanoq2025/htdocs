@@ -6,3 +6,18 @@
   align-items: center;
   padding: 1rem;
 }
+
+.containerForm {
+  width: 100%;
+  max-width: 400px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+h1 {
+  font-family: "Poppins", sans-serif;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}

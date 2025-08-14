@@ -22,30 +22,34 @@ function ForgotPasswordForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <h2>Glemt Adgangskode</h2>
+    <div className={styles.container}>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <h2>Glemt Adgangskode</h2>
 
-      <div>
-        <label>Email:</label>
-        <input
-          type="email"
-          {...register("email", {
-            required: "Email er påkrævet",
-            pattern: {
-              value: /^\S+@\S+$/i,
-              message: "Ugyldig email",
-            },
-          })}
-        />
-        {errors.email && <p style={{ color: "red" }}>{errors.email.message}</p>}
-      </div>
+        <div>
+          <input
+            type="email"
+            {...register("email", {
+              required: "Email er påkrævet",
+              pattern: {
+                value: /^\S+@\S+$/i,
+                message: "Ugyldig email",
+              },
+            })}
+            placeholder="Indtast din email"
+          />
+          {errors.email && (
+            <p style={{ color: "red" }}>{errors.email.message}</p>
+          )}
+        </div>
 
-      <button type="submit" disabled={loading}>
-        {loading ? "Sender..." : "Nulstil Adgangskode"}
-      </button>
+        <button type="submit" disabled={loading} className={styles.btnSubmit}>
+          {loading ? "Sender..." : "Nulstil Adgangskode"}
+        </button>
 
-      {message && <p>{message}</p>}
-    </form>
+        {message && <p>{message}</p>}
+      </form>
+    </div>
   );
 }
 

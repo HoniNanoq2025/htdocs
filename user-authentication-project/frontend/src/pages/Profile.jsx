@@ -7,7 +7,9 @@ export default function Profile() {
     <div className={styles.container}>
       <h1>Profile Page</h1>
       <AuthDemo />
-      <NewPasswordForm />
+      <div className={styles.containerForm}>
+        <NewPasswordForm />
+      </div>
     </div>
   );
 }

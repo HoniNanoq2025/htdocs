@@ -72,7 +72,7 @@ const ResetPasswordForm = () => {
   }
 
   return (
-    <div className={styles.container}>
+    <div className={styles.containerForm}>
       <form
         className={styles.form}
         onSubmit={handleSubmit(onSubmit)}
@@ -123,7 +123,11 @@ const ResetPasswordForm = () => {
           </p>
         )}
 
-        <button type="submit" className={styles.submitBtn} disabled={loading}>
+        <button
+          type="submit"
+          className={styles.resetSubmitBtn}
+          disabled={loading}
+        >
           {loading ? "Nulstiller..." : "Nulstil Adgangskode"}
         </button>
 

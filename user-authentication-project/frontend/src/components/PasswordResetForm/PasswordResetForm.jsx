@@ -59,7 +59,7 @@ const PasswordResetForm = () => {
   // If no token, show error state
   if (!token) {
     return (
-      <div className={styles.container}>
+      <div className={styles.containerForm}>
         <div className={styles.form}>
           <h2 className={styles.formHeader}>Nulstil adgangskode</h2>
           <p className={styles.error}>Dette link er ugyldigt eller udløbet.</p>
@@ -72,7 +72,7 @@ const PasswordResetForm = () => {
   }
 
   return (
-    <div className={styles.container}>
+    <div className={styles.containerForm}>
       <form
         className={styles.form}
         onSubmit={handleSubmit(onSubmit)}
@@ -123,7 +123,11 @@ const PasswordResetForm = () => {
           </p>
         )}
 
-        <button type="submit" className={styles.submitBtn} disabled={loading}>
+        <button
+          type="submit"
+          className={styles.resetSubmitBtn}
+          disabled={loading}
+        >
           {loading ? "Nulstiller..." : "Nulstil Adgangskode"}
         </button>
 

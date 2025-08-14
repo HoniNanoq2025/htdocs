@@ -116,7 +116,7 @@ export const AuthProvider = ({ children }) => {
       setLoading(true);
 
       // Use the API router instead of direct file access
-      const response = await fetch("http://localhost:8000/api/register", {
+      const response = await fetch("http://localhost:8000/api/register.php  ", {
         method: "POST",
         credentials: "include",
         headers: {

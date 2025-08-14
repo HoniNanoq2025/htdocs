@@ -90,7 +90,7 @@ export const AuthProvider = ({ children }) => {
           "Content-Type": "application/json",
         },
         // Your backend expects 'username' field for login (can be email or username)
-        body: JSON.stringify({ username: email, password }),
+        body: JSON.stringify({ email, password }),
       });
 
       const data = await response.json();

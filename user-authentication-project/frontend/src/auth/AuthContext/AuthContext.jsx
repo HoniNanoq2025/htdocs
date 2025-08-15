@@ -298,6 +298,51 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  // Delete profile function
+  // This function allows users to delete their account
+  const deleteProfile = async (password, confirmText) => {
+    try {
+      setLoading(true);
+
+      const response = await fetch(
+        "http://localhost:8000/api/delete-profile.php",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+          body: JSON.stringify({
+            password,
+            confirmText,
+          }),
+        }
+      );
+
+      const data = await response.json();
+
+      if (data.success) {
+        // Clear auth state since account is deleted
+        setUser(null);
+        setIsAuthenticated(false);
+      }
+
+      return {
+        success: data.success !== undefined ? data.success : response.ok,
+        message:
+          data.message ||
+          (response.ok
+            ? "Profile deleted successfully"
+            : "Profile deletion failed"),
+      };
+    } catch (error) {
+      console.error("Delete profile error:", error);
+      return { success: false, message: "Network error occurred" };
+    } finally {
+      setLoading(false);
+    }
+  };
+
   // Context value
   const value = {
     user,
@@ -309,6 +354,7 @@ export const AuthProvider = ({ children }) => {
     forgotPassword,
     resetPassword,
     changePassword,
+    deleteProfile,
     checkAuthStatus,
   };
 

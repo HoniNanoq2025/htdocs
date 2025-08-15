@@ -82,6 +82,16 @@ switch ($path) {
         }
         break;
         
+    case '/api/delete-profile':
+        if ($requestMethod === 'POST') { 
+            include __DIR__ . '/api/delete-profile.php';
+            exit();
+        } else { 
+            sendError('Method not allowed', 405);}
+        break;
+
+    
+        
     default:
         sendError('Endpoint not found', 404);
         break;

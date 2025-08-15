@@ -1,0 +1,256 @@
+/* DeleteProfile.module.css */
+
+.container {
+  min-height: 100vh;
+  background-color: #f9fafb;
+  padding: 3rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card {
+  max-width: 28rem;
+  width: 100%;
+  background-color: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  padding: 2rem;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.title {
+  font-size: 1.875rem;
+  font-weight: bold;
+  color: #111827;
+  margin: 0 0 0.5rem 0;
+}
+
+.confirmTitle {
+  color: #dc2626;
+}
+
+.subtitle {
+  margin: 0;
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.warningBox {
+  background-color: #fef2f2;
+  border-left: 4px solid #f87171;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.warningContent {
+  margin-left: 0.75rem;
+}
+
+.warningText {
+  font-size: 0.875rem;
+  color: #b91c1c;
+  margin: 0 0 0.5rem 0;
+}
+
+.warningList {
+  margin: 0.5rem 0 0 0;
+  padding-left: 1.25rem;
+  font-size: 0.875rem;
+  color: #b91c1c;
+}
+
+.warningList li {
+  margin-bottom: 0.25rem;
+}
+
+.actionSection {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.accountInfo {
+  background-color: #f3f4f6;
+  padding: 1rem;
+  border-radius: 0.375rem;
+}
+
+.accountText {
+  font-size: 0.875rem;
+  color: #374151;
+  margin: 0;
+}
+
+.formSection {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: 0.25rem;
+}
+
+.input {
+  appearance: none;
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+  color: #111827;
+  background-color: white;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+.input::placeholder {
+  color: #9ca3af;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #dc2626;
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+  z-index: 10;
+}
+
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid transparent;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  box-sizing: border-box;
+}
+
+.button:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
+}
+
+.deleteButton {
+  color: white;
+  background-color: #dc2626;
+  border-color: transparent;
+}
+
+.deleteButton:hover {
+  background-color: #b91c1c;
+}
+
+.deleteButton:focus {
+  box-shadow: 0 0 0 2px rgba(220, 38, 38, 0.5);
+}
+
+.confirmDeleteButton {
+  color: white;
+  background-color: #dc2626;
+  border-color: transparent;
+}
+
+.confirmDeleteButton:hover:not(.disabled) {
+  background-color: #b91c1c;
+}
+
+.confirmDeleteButton:focus {
+  box-shadow: 0 0 0 2px rgba(220, 38, 38, 0.5);
+}
+
+.cancelButton {
+  color: #374151;
+  background-color: white;
+  border-color: #d1d5db;
+}
+
+.cancelButton:hover {
+  background-color: #f9fafb;
+}
+
+.cancelButton:focus {
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.5);
+}
+
+.disabled {
+  background-color: #9ca3af !important;
+  cursor: not-allowed !important;
+}
+
+.disabled:hover {
+  background-color: #9ca3af !important;
+}
+
+.buttonGroup {
+  display: flex;
+  gap: 1rem;
+}
+
+.buttonGroup .button {
+  flex: 1;
+}
+
+.message {
+  margin-bottom: 1rem;
+  padding: 1rem;
+  border-radius: 0.375rem;
+  border: 1px solid;
+}
+
+.success {
+  background-color: #f0fdf4;
+  color: #166534;
+  border-color: #bbf7d0;
+}
+
+.error {
+  background-color: #fef2f2;
+  color: #b91c1c;
+  border-color: #fecaca;
+}
+
+.redirectText {
+  font-size: 0.875rem;
+  margin: 0.5rem 0 0 0;
+}
+
+@media (max-width: 640px) {
+  .container {
+    padding: 1.5rem 0.5rem;
+  }
+
+  .card {
+    padding: 1.5rem;
+  }
+
+  .title {
+    font-size: 1.5rem;
+  }
+
+  .buttonGroup {
+    flex-direction: column;
+  }
+}

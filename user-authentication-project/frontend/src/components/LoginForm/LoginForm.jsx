@@ -26,7 +26,7 @@ const LoginForm = () => {
   };
 
   return (
-    <>
+    <div className={styles.loginContainer}>
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
         <h2 className={styles.formHeader}>Login</h2>
         {/* Your existing input fields stay exactly the same */}
@@ -77,7 +77,7 @@ const LoginForm = () => {
           Glemt din adgangskode?
         </Link>
       </div>
-    </>
+    </div>
   );
 };
 

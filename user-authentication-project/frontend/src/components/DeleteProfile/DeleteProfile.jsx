@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useAuth } from "../auth/AuthContext/AuthContext";
+import { useAuth } from "../../auth/AuthContext/AuthContext";
 import styles from "./DeleteProfile.module.css";
 
 const DeleteProfile = () => {

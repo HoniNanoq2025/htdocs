@@ -9,6 +9,7 @@ import LoginForm from "./components/LoginForm/LoginForm";
 import RegistrationForm from "./components/RegistrationForm/RegistrationForm";
 import ForgotPasswordForm from "./components/ForgotPasswordForm/ForgotPasswordForm";
 import ResetPasswordForm from "./components/ResetPasswordForm/ResetPasswordForm";
+import DeleteProfile from "./components/DeleteProfile/DeleteProfile";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import styles from "./App.module.css";
@@ -41,6 +42,16 @@ export default function App() {
             element={
               <ProtectedRoute>
                 <Profile />
+              </ProtectedRoute>
+            }
+          />
+
+          {/* Delete Profile Route */}
+          <Route
+            path="/delete-profile"
+            element={
+              <ProtectedRoute>
+                <DeleteProfile />
               </ProtectedRoute>
             }
           />

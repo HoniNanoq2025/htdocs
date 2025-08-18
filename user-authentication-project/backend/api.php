@@ -89,6 +89,14 @@ switch ($path) {
         } else { 
             sendError('Method not allowed', 405);}
         break;
+    case '/api/comments':
+        if (in_array($requestMethod, ['GET', 'POST', 'PUT', 'DELETE'])) {
+            include __DIR__ . '/api/comments.php';
+            exit();
+        } else {
+            sendError('Method not allowed', 405);
+        }
+        break;
 
     
         

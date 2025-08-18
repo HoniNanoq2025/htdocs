@@ -23,7 +23,7 @@ const RegistrationForm = () => {
       if (result.success) {
         alert("Du er nu registreret!");
         reset();
-        window.location.href = "/dashboard"; // Redirect to dashboard after successful registration
+        window.location.href = "/login"; // Redirect to login after successful registration
       } else {
         alert(result.message || "Registrering mislykkedes.");
       }
@@ -57,7 +57,7 @@ const RegistrationForm = () => {
             {errors.name.message}
           </p>
         )}
-  
+
         <input
           {...register("username", {
             required: "Brugernavn er påkrævet",
@@ -77,7 +77,7 @@ const RegistrationForm = () => {
             {errors.username.message}
           </p>
         )}
-  
+
         <input
           {...register("email", {
             required: "Email er påkrævet",
@@ -96,7 +96,7 @@ const RegistrationForm = () => {
             {errors.email.message}
           </p>
         )}
-  
+
         <input
           {...register("password", {
             required: "Adgangskode er påkrævet",
@@ -117,7 +117,7 @@ const RegistrationForm = () => {
             {errors.password.message}
           </p>
         )}
-  
+
         <button type="submit" className={styles.submitBtn} disabled={loading}>
           {loading ? "Registrerer..." : "Registrer"}
         </button>

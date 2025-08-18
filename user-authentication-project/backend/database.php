@@ -52,10 +52,34 @@ class Database {
                 FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
             )
         ";
+
+        // Comments table
+        $commentSql = "
+        CREATE TABLE comments (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            user_id INTEGER NOT NULL,
+            content TEXT NOT NULL,
+            page_url TEXT NOT NULL DEFAULT '/',
+            created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+            updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+            FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+            )
+        ";
+
+        // Likes table for episodes
+        $likeSql = "
+        CREATE TABLE IF NOT EXISTS episode_likes ( 
+            id INTEGER PRIMARY KEY AUTOINCREMENT, 
+            episode_id INTEGER NOT NULL, 
+            user_id INTEGER NOT NULL, 
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
+            UNIQUE(episode_id, user_id) )";
         
         try {
             $this->db->exec($usersSql);
             $this->db->exec($resetsSql);
+            $this->db->exec($commentSql);
+            $this->db->exec($likeSql);
             /* echo "Tables created successfully!\n"; */
         } catch(PDOException $e) {
             die("Error creating tables: " . $e->getMessage());

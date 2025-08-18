@@ -17,9 +17,6 @@ $method = $_SERVER['REQUEST_METHOD'];
 $database = new Database();
 $db = $database->getConnection();
 
-// Initialize comments table if it doesn't exist
-initializeCommentsTable($db);
-
 switch ($method) {
     case 'GET':
         handleGetComments($db);
@@ -37,26 +34,6 @@ switch ($method) {
         http_response_code(405);
         echo json_encode(["success" => false, "message" => "Method not allowed"]);
         break;
-}
-
-function initializeCommentsTable($db) {
-    $sql = "
-        CREATE TABLE IF NOT EXISTS comments (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            user_id INTEGER NOT NULL,
-            content TEXT NOT NULL,
-            page_url TEXT NOT NULL DEFAULT '/',
-            created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-            updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-            FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
-        )
-    ";
-    
-    try {
-        $db->exec($sql);
-    } catch(PDOException $e) {
-        error_log("Error creating comments table: " . $e->getMessage());
-    }
 }
 
 function handleGetComments($db) {

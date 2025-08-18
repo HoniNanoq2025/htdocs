@@ -9,10 +9,15 @@
 
 .icon {
   color: var(--light);
+  transition: color 0.2s ease;
 }
 
 .icon:hover {
   color: var(--lightblue);
+}
+
+.liked {
+  color: var(--lightblue); /* different color when liked */
 }
 
 .likeCount {

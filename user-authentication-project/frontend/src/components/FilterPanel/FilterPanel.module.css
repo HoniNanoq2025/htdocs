@@ -1,0 +1,60 @@
+.filterPanel {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  padding: 1rem;
+  border-radius: 12px;
+}
+
+.input,
+.select {
+  background-color: var(--iframe);
+  color: var(--lightblue);
+  padding: 0.6rem;
+  font-family: "Jost", sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 8px;
+  transition: border 0.3s;
+}
+
+.input:focus,
+.select:focus {
+  border-color: var(--lightblue);
+  outline: none;
+}
+
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.95rem;
+  color: white;
+}
+
+.resetBtn {
+  background-color: var(--red);
+  border: none;
+  padding: 0.6rem 1.2rem;
+  font-family: "Jost", sans-serif;
+  font-size: 1rem;
+  color: white;
+  text-transform: uppercase;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.resetBtn:hover {
+  background-color: var(--iframe);
+}
+
+@media (min-width: 1000px) {
+  .filterPanel {
+    flex-direction: row;
+  }
+}

@@ -1,0 +1,161 @@
+/* Header Section */
+.headerSection {
+  background-image: url(/images/wonjong-ha-vaHSY41OmjA-unsplash.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: bottom center;
+  background-attachment: fixed;
+  height: 350px;
+  width: 100vw;
+  display: grid;
+  place-content: center;
+  gap: 1.5rem;
+}
+
+.backBtnContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  width: 50%;
+}
+
+.backButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: var(--red);
+  color: var(--light);
+  border: none;
+  border-radius: 8px;
+  padding: 0.75rem 1.5rem;
+  font-family: "Jost", sans-serif;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  align-self: flex-start;
+}
+
+.backButton:hover {
+  background-color: var(--lightblue);
+  color: var(--dark);
+  transform: translateX(-5px);
+}
+
+.backButton:focus {
+  outline: 3px solid var(--light);
+  outline-offset: 2px;
+}
+
+/* Category Header */
+.categoryHeader {
+  text-align: center;
+  color: var(--light);
+  padding-bottom: 100px;
+}
+
+.categoryTitle {
+  color: var(--red);
+  font-size: clamp(40px, 6vw, 100px);
+  font-weight: 300;
+  text-transform: uppercase;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  margin-bottom: 0.5rem;
+}
+
+.episodeCount {
+  font-size: clamp(1rem, 3vw, 1.3rem);
+  color: var(--lightblue);
+  margin: 0;
+}
+
+.customShapeDividerBottom {
+  position: relative;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+  transform: rotate(180deg);
+  margin-top: -120px;
+  margin-bottom: -1px;
+  z-index: 800;
+}
+
+.customShapeDividerBottom svg {
+  position: relative;
+  display: block;
+  width: calc(123% + 1.3px);
+  height: 122px;
+}
+
+.shapeFill {
+  fill: var(--darkblue);
+}
+
+/* Episodes Container */
+.episodesContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding-top: 40px;
+  padding-bottom: 60px;
+}
+
+.episodesGrid {
+  display: grid;
+  grid-template-columns: repeat(minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+/* Loading and Error States */
+.loadingContainer,
+.errorContainer,
+.noEpisodesContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 400px;
+  color: var(--light);
+  gap: 1rem;
+}
+
+.errorContainer h1,
+.noEpisodesContainer h2 {
+  color: var(--red);
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  margin-bottom: 1rem;
+}
+
+.errorContainer p,
+.noEpisodesContainer p {
+  font-size: clamp(1rem, 3vw, 1.2rem);
+  color: var(--lightblue);
+  margin-bottom: 2rem;
+  max-width: 600px;
+}
+
+/* Responsive Design */
+
+@media (min-width: 1000px) {
+  .episodesGrid {
+    grid-template-columns: repeat(3, 300px); /* Desktop: 3 columns */
+  }
+}
+
+@media (min-width: 1200px) {
+  .backBtnContainer {
+    width: 1100px;
+  }
+}
+
+@media (max-width: 768px) {
+  h1 {
+    font-weight: 700;
+  }
+
+  .categoryHeader {
+    padding-bottom: 50px;
+  }
+}

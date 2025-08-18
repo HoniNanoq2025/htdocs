@@ -1,0 +1,111 @@
+.card {
+  background-color: var(--lightblue);
+  border: none;
+  border-radius: 10px;
+  height: auto;
+  min-height: 500px;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+}
+
+.imageContainer {
+  position: relative;
+  width: 300px;
+  height: 180px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  flex-shrink: 0;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  object-fit: cover;
+}
+
+.readMoreBtn {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  border: 1px solid var(--light);
+  border-radius: 8px;
+  padding: 0.5rem;
+  background-color: var(--dark);
+  color: var(--light);
+  cursor: pointer;
+  font-family: "Jost", sans-serif;
+}
+
+.readMoreBtn:hover {
+  background-color: var(--red);
+}
+
+.redContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: var(--red);
+  padding: 5px 10px;
+  height: 60px;
+  flex-shrink: 0;
+}
+
+.likesContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.reviewContainer p {
+  color: var(--light);
+  font-size: clamp(14px, 3vw, 16px);
+  margin: 0;
+}
+
+.episodeDescription {
+  background-color: var(--lightblue);
+  color: var(--dark);
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.episodeTitle {
+  color: var(--red);
+  text-align: left;
+  padding: 10px 20px 0;
+  font-size: clamp(18px, 4vw, 24px);
+}
+
+details {
+  cursor: pointer;
+}
+
+.episodeDetails {
+  color: var(--darkblue);
+  font-size: clamp(14px, 3vw, 16px);
+  padding: 0 20px 10px;
+  margin-bottom: 10px;
+  flex-grow: 1;
+}
+
+.episodeTxt {
+  color: var(--darkblue);
+  font-size: clamp(14px, 3vw, 16px);
+  padding: 5px 20px;
+  line-height: 1.5;
+}
+
+.iFrameContainer {
+  height: 100px;
+  flex-shrink: 0; /* Prevent shrinking */
+  margin-top: auto;
+}
+
+iframe {
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}

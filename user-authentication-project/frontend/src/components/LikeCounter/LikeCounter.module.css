@@ -1,0 +1,21 @@
+.likeCounter > button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  margin: 0 auto;
+  margin-left: 15px;
+  margin-right: 5px;
+}
+
+.icon {
+  color: var(--light);
+}
+
+.icon:hover {
+  color: var(--lightblue);
+}
+
+.likeCount {
+  font-family: "Jost", sans-serif;
+  color: var(--light);
+}

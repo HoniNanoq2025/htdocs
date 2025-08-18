@@ -1,0 +1,130 @@
+.heroContainerAbout {
+  background-image: url(/images/wonjong-ha-vaHSY41OmjA-unsplash.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: bottom center;
+  background-attachment: fixed;
+  height: 300px;
+  width: 100vw;
+  display: grid;
+  place-content: center;
+}
+
+.headlineAbout {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin: auto;
+  padding-bottom: 65px;
+}
+
+h1 {
+  color: var(--red);
+  font-size: clamp(40px, 6vw, 100px);
+  font-weight: 300;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.customShapeDividerBottom {
+  position: relative;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+  transform: rotate(180deg);
+  margin-top: -120px;
+  margin-bottom: -1px;
+  z-index: 800;
+}
+
+.customShapeDividerBottom svg {
+  position: relative;
+  display: block;
+  width: calc(123% + 1.3px);
+  height: 122px;
+}
+
+.shapeFill {
+  fill: var(--darkblue);
+}
+
+.aboutInfoSection {
+  width: 100%;
+  color: var(--light);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.aboutInfoContainer {
+  width: 80%;
+  margin-top: 20px;
+}
+
+.aboutTxt {
+  margin-bottom: 15px;
+}
+
+.aboutSoMeList {
+  list-style-type: none;
+  margin-bottom: 10px;
+  line-height: 1.6;
+}
+
+.aboutSoMeList a {
+  margin: 0;
+  padding: 0;
+  font-weight: 600;
+}
+
+.aboutSoMeList a:hover {
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.bbcFanStoriesLink > a {
+  margin: 0 auto;
+}
+
+.linkButtons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+  margin-bottom: 60px;
+}
+
+.linkBtn {
+  font-family: "Jost", sans-serif;
+  font-size: 1rem;
+  width: 280px;
+  padding: 10px 20px;
+  background-color: var(--red);
+  border: none;
+  border-radius: 8px;
+  color: var(--light);
+  cursor: pointer;
+}
+
+.linkBtn:hover {
+  font-family: "Jost", sans-serif;
+  background-color: var(--lightblue);
+  color: var(--dark);
+  border: 1px solid var(--lightblue);
+}
+
+@media (min-width: 900px) {
+  .aboutInfoContainer {
+    width: 50%;
+  }
+}
+
+@media (min-width: 1090px) {
+  .aboutInfoContainer {
+    width: 30%;
+  }
+}

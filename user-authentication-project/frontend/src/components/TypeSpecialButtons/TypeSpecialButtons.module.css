@@ -1,0 +1,154 @@
+/* Special Categories Section */
+.specialCategoriesSection {
+  width: 100%;
+  padding: 1rem 1rem 6rem;
+  margin: 2rem 0;
+  font-family: "Jost", sans-serif;
+}
+
+/* Section Header */
+.sectionHeader {
+  text-align: center;
+  margin-bottom: 2.5rem;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.sectionTitle {
+  color: var(--light);
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  font-weight: 300;
+  margin-bottom: 0.5rem;
+}
+
+.sectionSubtitle {
+  color: var(--lightblue);
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
+  margin: 0;
+}
+
+/* Categories Grid */
+.categoriesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* Category Buttons */
+.categoryButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  height: 150px;
+  position: relative;
+}
+
+/* Category Background */
+.categoryBackground {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: top center;
+  background-repeat: no-repeat;
+  position: relative;
+  transition: transform 0.3s ease;
+}
+
+.categoryButton:hover .categoryBackground {
+  transform: scale(1.05);
+}
+
+/* Category Overlay */
+.categoryOverlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(150, 31, 59, 0.9);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 1.5rem;
+  color: var(--light);
+  transition: background 0.3s ease;
+}
+
+.categoryButton:hover .categoryOverlay {
+  background: var(--lightblue);
+  color: var(--dark);
+}
+
+/* Category Text */
+.categoryName {
+  font-family: "Jost", sans-serif;
+  font-size: clamp(1.2rem, 3vw, 1.5rem);
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  /* text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); */
+  line-height: 1.2;
+}
+
+.episodeCount {
+  font-family: "Jost", sans-serif;
+  font-size: clamp(0.9rem, 2vw, 1rem);
+  font-weight: 400;
+  opacity: 0.9;
+  /* text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3); */
+}
+
+/* Loading and Error States */
+.loadingContainer,
+.errorContainer {
+  text-align: center;
+  padding: 2rem;
+  color: var(--lightblue);
+  font-size: 1.1rem;
+}
+
+.errorContainer {
+  color: var(--lightblue);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .specialCategoriesSection {
+    padding: 2rem 0.5rem;
+    margin: 1rem 0;
+  }
+
+  .sectionHeader {
+    margin-bottom: 2rem;
+  }
+
+  .categoriesGrid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+  }
+
+  .categoryButton {
+    height: 180px;
+  }
+
+  .categoryOverlay {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .categoriesGrid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .categoryButton {
+    height: 160px;
+  }
+}

@@ -10,8 +10,13 @@ import RegistrationForm from "./components/RegistrationForm/RegistrationForm";
 import ForgotPasswordForm from "./components/ForgotPasswordForm/ForgotPasswordForm";
 import ResetPasswordForm from "./components/ResetPasswordForm/ResetPasswordForm";
 import DeleteProfile from "./components/DeleteProfile/DeleteProfile";
+import Episodes from "./pages/Episodes/Episodes";
+import EpisodeDetail from "./components/EpisodeDetail/EpisodeDetail";
+import SpecialEpisodesList from "./pages/SpecialEpisodesList/SpecialEpisodesList";
+import CookiePolicy from "./pages/CookiePolicy/CookiePolicy";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
+import CookieBanner from "./components/CookieBanner/CookieBanner";
 import styles from "./App.module.css";
 
 export default function App() {

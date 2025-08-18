@@ -1,0 +1,275 @@
+.heroContainerDetails {
+  background-image: url(/images/wonjong-ha-vaHSY41OmjA-unsplash.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: bottom center;
+  background-attachment: fixed;
+  height: 350px;
+  width: 100vw;
+  display: grid;
+  place-content: center;
+}
+
+.headlineDetails {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin: auto;
+  padding-bottom: 75px;
+}
+
+h1 {
+  color: var(--red);
+  font-size: clamp(40px, 6vw, 100px);
+  font-weight: 300;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.customShapeDividerBottom {
+  position: relative;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+  transform: rotate(180deg);
+  margin-top: -120px;
+  margin-bottom: -1px;
+  z-index: 800;
+}
+
+.customShapeDividerBottom svg {
+  position: relative;
+  display: block;
+  width: calc(123% + 1.3px);
+  height: 122px;
+}
+
+.shapeFill {
+  fill: var(--darkblue);
+}
+
+.episodeDetailContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 25px;
+  padding: 20px;
+}
+
+.mobileButtons {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+}
+
+.episodeCard {
+  background-color: var(--lightblue);
+  max-width: 300px;
+  padding: 20px;
+  border-radius: 10px;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: none;
+}
+
+.timeInfo {
+  color: var(--darkblue);
+  font-weight: 600;
+  font-size: 1.2rem;
+  display: flex;
+  flex-direction: row;
+  gap: 50px;
+  justify-content: space-between;
+}
+
+.detailImageContainer {
+  position: relative;
+  width: 300px;
+  height: 210px;
+  border-radius: none;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  border-radius: none;
+  object-fit: cover;
+}
+
+.favoriteBtn {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  border: 1px solid white;
+  border-radius: 50%;
+  padding: 0.5rem;
+  background-color: white;
+  cursor: pointer;
+}
+
+.favoriteBtn:hover {
+  border: 2px solid var(--darkblue);
+}
+
+.iFrameContainer {
+  margin-top: 20px;
+  width: 290px;
+}
+
+.mobileButtons {
+  margin-top: 20px;
+}
+
+.desktopView {
+  width: 100%;
+  display: none;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.shuffleBtn {
+  background-color: var(--red);
+  color: var(--light);
+  border: none;
+  padding: 10px;
+  border-radius: 50%;
+  height: 75px;
+  width: 75px;
+  cursor: pointer;
+}
+
+.shuffleBtn:hover:not(:disabled) {
+  background-color: var(--red);
+  transform: scale(1.05);
+  color: var(--light);
+  border: 2px solid var(--light);
+  transition: all 0.3s ease;
+}
+
+.shuffleBtn:disabled {
+  background-color: #ccc;
+  color: #999;
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.podcastReference {
+  width: 100%;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  color: #1f2e44;
+  font-weight: 300;
+  font-size: 1rem;
+  height: 28px;
+}
+
+.episodeTitle {
+  color: var(--red);
+  font-size: clamp(24px, 2vw, 30px);
+  font-weight: 500;
+  line-height: 1.1;
+}
+
+.text {
+  color: var(--darkblue);
+  font-size: clamp(16px, 1.5vw, 18px);
+  font-weight: 500;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.reviewContainerDetails {
+  width: 100%;
+}
+
+.reviewContainerDetails p {
+  color: var(--darkblue);
+  font-size: clamp(16px, 2vw, 18px);
+  font-weight: 500;
+  margin: 0;
+}
+
+@media (min-width: 350px) {
+  .episodeCard {
+    max-width: 320px;
+  }
+
+  .detailImageContainer {
+    border-radius: 10px;
+  }
+
+  .image {
+    border-radius: 10px;
+  }
+
+  .iFrameContainer {
+    width: 300px;
+  }
+}
+
+@media (min-width: 1000px) {
+  .mobileView {
+    display: none;
+  }
+
+  .desktopView {
+    display: flex;
+  }
+
+  .episodeDetailContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 25px;
+    padding: 75px;
+  }
+
+  .episodeCard {
+    max-width: 1200px;
+    flex-direction: row;
+    padding: 30px 10px;
+    gap: 20px;
+    align-items: start;
+  }
+
+  .cardLeftSide {
+    margin: 0;
+    padding-left: 20px;
+  }
+
+  .timeInfo {
+    gap: 20px;
+  }
+
+  .detailImageContainer {
+    position: relative;
+    width: 300px;
+    height: 210px;
+    border-radius: 10px;
+  }
+
+  .image {
+    border-radius: 10px;
+  }
+
+  .iFrameContainer {
+    margin-top: 20px;
+    width: 300px;
+  }
+
+  .cardRightSide {
+    max-width: 640px;
+    padding-right: 20px;
+  }
+}

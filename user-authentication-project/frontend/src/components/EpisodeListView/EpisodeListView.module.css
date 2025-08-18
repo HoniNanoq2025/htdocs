@@ -1,0 +1,27 @@
+.episodeList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 1fr; /* Mobile: single column */
+  gap: 2rem;
+}
+
+.episodeListItem {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  border-radius: 12px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+@media (min-width: 1000px) {
+  .episodeList {
+    grid-template-columns: repeat(3, 300px); /* Desktop: 3 columns */
+  }
+  .episodeListItem {
+    margin-bottom: 0;
+    padding: 0;
+  }
+}

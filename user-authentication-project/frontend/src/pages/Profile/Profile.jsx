@@ -1,7 +1,7 @@
 import { AuthDemo } from "../auth/AuthContext/AuthContext";
 import NewPasswordForm from "../components/NewPasswordForm/NewPasswordForm";
 import { Link } from "react-router-dom";
-import styles from "./styles.module.css";
+import styles from "../styles.module.css";
 
 export default function Profile() {
   return (

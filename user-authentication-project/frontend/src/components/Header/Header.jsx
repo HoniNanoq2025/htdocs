@@ -29,12 +29,20 @@ export default function Header() {
         <NavLink to="/about" className={styles.link}>
           About
         </NavLink>
-        <NavLink to="/contact" className={styles.link}>
-          Contact
+        <NavLink to="/episodes" className={styles.link}>
+          Episodes
         </NavLink>
         <NavLink to="/profile" className={styles.link}>
           Profile
         </NavLink>
+        {/* External link */}
+        <a
+          href="https://www.redbubble.com/people/ReCallTheMidPod/shop"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Shop
+        </a>
 
         {!isAuthenticated ? (
           <>
@@ -46,12 +54,17 @@ export default function Header() {
             </NavLink>
           </>
         ) : (
-          <button
-            onClick={handleLogout}
-            className={`${styles.link} ${styles.linkButton}`}
-          >
-            Logout
-          </button>
+          <>
+            <NavLink to="/contact" className={styles.link}>
+              Contact us
+            </NavLink>
+            <button
+              onClick={handleLogout}
+              className={`${styles.link} ${styles.linkButton}`}
+            >
+              Logout
+            </button>
+          </>
         )}
       </nav>
 
@@ -81,11 +94,11 @@ export default function Header() {
             About
           </NavLink>
           <NavLink
-            to="/contact"
+            to="/episodes"
             className={styles.mobileLink}
             onClick={handleLinkClick}
           >
-            Contact
+            Episodes
           </NavLink>
           <NavLink
             to="/profile"
@@ -94,6 +107,15 @@ export default function Header() {
           >
             Profile
           </NavLink>
+          <a
+            href="https://www.redbubble.com/people/ReCallTheMidPod/shop"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.mobileLink}
+            onClick={handleLinkClick}
+          >
+            Shop
+          </a>
 
           {!isAuthenticated ? (
             <>
@@ -113,12 +135,21 @@ export default function Header() {
               </NavLink>
             </>
           ) : (
-            <button
-              onClick={handleLogout}
-              className={`${styles.mobileLink} ${styles.mobileLinkButton}`}
-            >
-              Logout
-            </button>
+            <>
+              <NavLink
+                to="/contact"
+                className={styles.mobileLink}
+                onClick={handleLinkClick}
+              >
+                Contact
+              </NavLink>
+              <button
+                onClick={handleLogout}
+                className={`${styles.mobileLink} ${styles.mobileLinkButton}`}
+              >
+                Logout
+              </button>
+            </>
           )}
         </nav>
       </div>

@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import { ProtectedRoute } from "./auth/ProtectedRoute/ProtectedRoute";
-import Home from "./pages/Home";
-import About from "./pages/About";
+import Home from "./pages/Home/Home";
+import About from "./pages/About/About";
 import Contact from "./pages/Contact";
 import Dashboard from "./pages/Dashboard";
 import Profile from "./pages/Profile";
@@ -27,12 +27,26 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
+          <Route path="/episodes" element={<Episodes />} />
+          <Route path="episodes/:Id" element={<EpisodeDetail />}></Route>
+          <Route
+            path="/specials/:categoryName"
+            element={<SpecialEpisodesList />}
+          />
           <Route path="/login" element={<LoginForm />} />
           <Route path="/register" element={<RegistrationForm />} />
           <Route path="/forgot-password" element={<ForgotPasswordForm />} />
           <Route path="/reset-password" element={<ResetPasswordForm />} />
+          <Route path="/cookie-policy" element={<CookiePolicy />} />
           {/* Protected routes */}
+          <Route
+            path="/contact"
+            element={
+              <ProtectedRoute>
+                <Contact />
+              </ProtectedRoute>
+            }
+          />
           <Route
             path="/dashboard"
             element={
@@ -62,6 +76,7 @@ export default function App() {
           />
         </Routes>
       </main>
+      <CookieBanner />
       <Footer />
     </div>
   );

@@ -41,36 +41,8 @@ function hasUserLiked($pdo, $episode_id, $user_id, $session_id) {
     return $stmt->fetchColumn() > 0;
 }
 
-// Update the existing episode_likes table to support guest sessions
-try {
-    // Check if session_id column exists
-    $checkColumn = $pdo->query("PRAGMA table_info(episode_likes)");
-    $columns = $checkColumn->fetchAll(PDO::FETCH_ASSOC);
-    $hasSessionColumn = false;
-    
-    foreach ($columns as $column) {
-        if ($column['name'] === 'session_id') {
-            $hasSessionColumn = true;
-            break;
-        }
-    }
-    
-    // Add columns if they don't exist
-    if (!$hasSessionColumn) {
-        $pdo->exec("ALTER TABLE episode_likes ADD COLUMN session_id TEXT NULL");
-        $pdo->exec("ALTER TABLE episode_likes ADD COLUMN ip_address TEXT NULL");
-        $pdo->exec("ALTER TABLE episode_likes ADD COLUMN user_agent TEXT NULL");
-        
-        // Update the unique constraint to handle both users and guests
-        $pdo->exec("DROP INDEX IF EXISTS unique_episode_user");
-        $pdo->exec("CREATE UNIQUE INDEX unique_episode_user ON episode_likes(episode_id, user_id) WHERE user_id IS NOT NULL");
-        $pdo->exec("CREATE UNIQUE INDEX unique_episode_session ON episode_likes(episode_id, session_id) WHERE session_id IS NOT NULL AND user_id IS NULL");
-    }
-    
-} catch (PDOException $e) {
-    // If there's an error with the schema update, log it but continue
-    error_log("Schema update error: " . $e->getMessage());
-}
+// Ensure table is migrated to support guests (if upgrading from old schema)
+$database->migrateLikesTable();
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     // Get like count and user like status

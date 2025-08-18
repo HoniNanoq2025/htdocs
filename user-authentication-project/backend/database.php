@@ -55,7 +55,7 @@ class Database {
 
         // Comments table
         $commentSql = "
-        CREATE TABLE comments (
+        CREATE TABLE IF NOT EXISTS comments (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             user_id INTEGER NOT NULL,
             content TEXT NOT NULL,
@@ -66,23 +66,51 @@ class Database {
             )
         ";
 
-        // Likes table for episodes
+        // Likes table for episodes - Updated to support both users and guests
         $likeSql = "
         CREATE TABLE IF NOT EXISTS episode_likes ( 
             id INTEGER PRIMARY KEY AUTOINCREMENT, 
-            episode_id INTEGER NOT NULL, 
-            user_id INTEGER NOT NULL, 
-            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
-            UNIQUE(episode_id, user_id) )";
+            episode_id TEXT NOT NULL, 
+            user_id INTEGER NULL, 
+            session_id TEXT NULL,
+            ip_address TEXT NULL,
+            user_agent TEXT NULL,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+        )";
         
         try {
             $this->db->exec($usersSql);
             $this->db->exec($resetsSql);
             $this->db->exec($commentSql);
             $this->db->exec($likeSql);
+            
+            // Create indexes and constraints for episode_likes after table creation
+            $this->createLikeConstraints();
+            
             /* echo "Tables created successfully!\n"; */
         } catch(PDOException $e) {
             die("Error creating tables: " . $e->getMessage());
+        }
+    }
+    
+    private function createLikeConstraints() {
+        try {
+            // Create unique constraints to prevent duplicate likes
+            // For logged-in users: one like per episode per user
+            $this->db->exec("CREATE UNIQUE INDEX IF NOT EXISTS unique_episode_user ON episode_likes(episode_id, user_id) WHERE user_id IS NOT NULL");
+            
+            // For guests: one like per episode per session
+            $this->db->exec("CREATE UNIQUE INDEX IF NOT EXISTS unique_episode_session ON episode_likes(episode_id, session_id) WHERE session_id IS NOT NULL AND user_id IS NULL");
+            
+            // Create regular indexes for performance
+            $this->db->exec("CREATE INDEX IF NOT EXISTS idx_episode_likes_episode_id ON episode_likes(episode_id)");
+            $this->db->exec("CREATE INDEX IF NOT EXISTS idx_episode_likes_user_id ON episode_likes(user_id)");
+            $this->db->exec("CREATE INDEX IF NOT EXISTS idx_episode_likes_session_id ON episode_likes(session_id)");
+            
+        } catch(PDOException $e) {
+            // If constraints already exist or there's a conflict, just log it
+            error_log("Constraint creation info: " . $e->getMessage());
         }
     }
     
@@ -114,6 +142,44 @@ class Database {
         } catch(PDOException $e) {
             // Log error but don't break the application
             error_log("Error cleaning up expired tokens: " . $e->getMessage());
+        }
+    }
+    
+    // Method to migrate existing episode_likes table if needed
+    public function migrateLikesTable() {
+        try {
+            // Check current table structure
+            $result = $this->db->query("PRAGMA table_info(episode_likes)");
+            $columns = $result->fetchAll(PDO::FETCH_ASSOC);
+            
+            $hasSessionId = false;
+            $hasIpAddress = false;
+            $hasUserAgent = false;
+            
+            foreach ($columns as $column) {
+                if ($column['name'] === 'session_id') $hasSessionId = true;
+                if ($column['name'] === 'ip_address') $hasIpAddress = true;
+                if ($column['name'] === 'user_agent') $hasUserAgent = true;
+            }
+            
+            // Add missing columns
+            if (!$hasSessionId) {
+                $this->db->exec("ALTER TABLE episode_likes ADD COLUMN session_id TEXT NULL");
+            }
+            if (!$hasIpAddress) {
+                $this->db->exec("ALTER TABLE episode_likes ADD COLUMN ip_address TEXT NULL");
+            }
+            if (!$hasUserAgent) {
+                $this->db->exec("ALTER TABLE episode_likes ADD COLUMN user_agent TEXT NULL");
+            }
+            
+            // Recreate constraints if columns were added
+            if (!$hasSessionId || !$hasIpAddress || !$hasUserAgent) {
+                $this->createLikeConstraints();
+            }
+            
+        } catch(PDOException $e) {
+            error_log("Migration error: " . $e->getMessage());
         }
     }
 }

@@ -1,3 +1,5 @@
+// user-authentication-project/frontend/src/utils/favoriteAPI.js
+// Utility functions for managing favorite episodes with backend API
 const API_BASE_URL = "http://localhost:8000/api/episodes";
 
 export async function getFavoritesFromBackend() {

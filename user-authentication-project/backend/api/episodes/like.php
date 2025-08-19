@@ -50,7 +50,7 @@ $database->migrateLikesTable();
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     // Get like count and user like status
     
-    if (!isset($_GET['episode_id'])) {
+    if (!array_key_exists('episode_id', $_GET) || $_GET['episode_id'] === '') {
         http_response_code(400);
         echo json_encode(['success' => false, 'message' => 'Episode ID is required']);
         exit;
@@ -78,7 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     
     $input = json_decode(file_get_contents('php://input'), true);
     
-    if (!isset($input['episode_id'])) {
+    if (!array_key_exists('episode_id', $input) || $input['episode_id'] === '') {
         http_response_code(400);
         echo json_encode(['success' => false, 'message' => 'Episode ID is required']);
         exit;
@@ -146,7 +146,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     
     $input = json_decode(file_get_contents('php://input'), true);
     
-    if (!isset($input['episode_id'])) {
+    if (!array_key_exists('episode_id', $input) || $input['episode_id'] === '') {
         http_response_code(400);
         echo json_encode(['success' => false, 'message' => 'Episode ID is required']);
         exit;

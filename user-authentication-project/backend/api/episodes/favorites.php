@@ -1,4 +1,5 @@
 <?php
+// user-authentication-project/backend/api/episodes/favorites.php
 require_once __DIR__ . '/../../cors.php';   // <-- path using __DIR__ is safest
 require_once __DIR__ . '/../../database.php';
 require_once __DIR__ . '/../../auth.php';

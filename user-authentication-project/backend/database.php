@@ -93,6 +93,14 @@ class Database {
             updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
         )";
+
+        $favoriteSql = "CREATE TABLE IF NOT EXISTS episode_favorites (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            user_id INTEGER NOT NULL,
+            episode_id INTEGER NOT NULL,
+            created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+            UNIQUE(user_id, episode_id)
+            )";
         
         try {
             $this->db->exec($usersSql);
@@ -100,6 +108,7 @@ class Database {
             $this->db->exec($commentSql);
             $this->db->exec($likeSql);
             $this->db->exec($reviewsSql);
+            $this->db->exec($favoriteSql);
             
             // Create indexes and constraints for episode_likes after table creation
             $this->createLikeConstraints();

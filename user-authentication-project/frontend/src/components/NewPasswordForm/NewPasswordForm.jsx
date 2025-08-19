@@ -43,7 +43,7 @@ const NewPasswordForm = () => {
   };
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
-      <h2>Change Your Password</h2>
+      <h2 className={styles.formHeader}>Change Your Password</h2>
       {message && <p className={styles.message}>{message}</p>}
       <div className={styles.formGroup}>
         <label htmlFor="currentPassword">Current Password</label>

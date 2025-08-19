@@ -18,6 +18,12 @@
   margin: auto;
 }
 
+.form > .formHeader {
+  font-family: "Jost", sans-serif;
+  color: var(--light);
+  text-transform: uppercase;
+}
+
 input {
   width: 100%;
   padding: 10px;
@@ -28,7 +34,7 @@ input {
 }
 
 input::placeholder {
-  font-family: "Poppins", sans-serif;
+  font-family: "Jost", sans-serif;
 }
 
 .submitBtn {
@@ -37,10 +43,18 @@ input::placeholder {
   margin: 10px 0;
   border: none;
   border-radius: 8px;
-  background-color: #007bff;
-  color: white;
+  background-color: var(--red);
+  font-family: "Jost", sans-serif;
   font-size: 16px;
+  font-weight: 500;
+  color: var(--light);
   cursor: pointer;
+  text-transform: uppercase;
+}
+
+.submitBtn:hover {
+  background-color: var(--lightblue);
+  color: var(--iframe);
 }
 
 .forgotPassword {

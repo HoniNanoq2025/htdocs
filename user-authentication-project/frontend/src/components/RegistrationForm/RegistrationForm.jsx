@@ -39,7 +39,7 @@ const RegistrationForm = () => {
         onSubmit={handleSubmit(onSubmit)}
         action="submit"
       >
-        <h2 className={styles.formHeader}>Registrer dig</h2>
+        <h2 className={styles.formHeader}>Create account</h2>
         <input
           {...register("name", {
             required: "Navn er påkrævet",
@@ -49,7 +49,7 @@ const RegistrationForm = () => {
             },
           })}
           type="text"
-          placeholder="Navn"
+          placeholder="Your name"
           className={`${styles.input} ${errors.name ? styles.inputError : ""}`}
         />
         {errors.name && (
@@ -67,7 +67,7 @@ const RegistrationForm = () => {
             },
           })}
           type="text"
-          placeholder="Brugernavn"
+          placeholder="Username"
           className={`${styles.input} ${
             errors.username ? styles.inputError : ""
           }`}
@@ -106,7 +106,7 @@ const RegistrationForm = () => {
             },
           })}
           type="password"
-          placeholder="Adgangskode"
+          placeholder="Password"
           className={`${styles.input} ${
             errors.password ? styles.inputError : ""
           }`}

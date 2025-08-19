@@ -19,7 +19,7 @@ export default function Header() {
 
   return (
     <header className={styles.header}>
-      <div className={styles.logo}>MySite</div>
+      {/* <div className={styles.logo}>MySite</div> */}
 
       {/* Desktop Navigation */}
       <nav className={styles.desktopNav}>

@@ -1,3 +1,4 @@
+// user-authentication-project/frontend/src/auth/AuthContext/AuthContext.jsx
 import { createContext, useContext, useState, useEffect } from "react";
 import styles from "./AuthContext.module.css";
 

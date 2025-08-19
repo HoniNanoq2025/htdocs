@@ -58,6 +58,8 @@ class User {
             if ($user && password_verify($password, $user['password_hash'])) {
                 // Remove password hash from returned data
                 unset($user['password_hash']);
+
+                    $_SESSION['user_id'] = $user['id'];
                 
                 return [
                     'success' => true,

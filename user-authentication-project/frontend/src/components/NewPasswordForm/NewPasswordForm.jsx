@@ -26,7 +26,7 @@ const NewPasswordForm = () => {
 
       if (result.success) {
         setMessage(
-          "Din adgangskode er blevet ændret! Du omdirigeres til login siden..."
+          "Your password has been changed! You vil be redirected to the login page..."
         );
         reset();
         // Redirect to login page after 3 seconds
@@ -43,35 +43,35 @@ const NewPasswordForm = () => {
   };
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
-      <h2>Skift Adgangskode</h2>
+      <h2>Change Your Password</h2>
       {message && <p className={styles.message}>{message}</p>}
       <div className={styles.formGroup}>
-        <label htmlFor="currentPassword">Nuværende Adgangskode</label>
+        <label htmlFor="currentPassword">Current Password</label>
         <input
           type="password"
           id="currentPassword"
           {...register("currentPassword", {
-            required: "Dette felt er påkrævet",
+            required: "Required!",
           })}
-          placeholder="Nuværende adgangskode"
+          placeholder="Current password"
         />
         {errors.currentPassword && (
           <span className={styles.error}>{errors.currentPassword.message}</span>
         )}
       </div>
       <div className={styles.formGroup}>
-        <label htmlFor="newPassword">Ny Adgangskode</label>
+        <label htmlFor="newPassword">New Password</label>
         <input
           {...register("newPassword", {
-            required: "Dette felt er påkrævet",
+            required: "Required!",
             minLength: {
               value: 8,
-              message: "Adgangskoden skal indeholde mindst 8 tegn",
+              message: "Password must contain at least 8 characters",
             },
           })}
           type="password"
           id="newPassword"
-          placeholder="Ny adgangskode (min. 8 tegn)"
+          placeholder="New password (min. 8 characters)"
           className={`${styles.input} ${
             errors.newPassword ? styles.inputError : ""
           }`}
@@ -84,16 +84,16 @@ const NewPasswordForm = () => {
 
       {/* CONFIRM NEW PASSWORD */}
       <div className={styles.formGroup}>
-        <label htmlFor="confirmPassword">Bekræft Ny Adgangskode</label>
+        <label htmlFor="confirmPassword">Confirm New Password</label>
         <input
           {...register("confirmPassword", {
-            required: "Bekræft adgangskode er påkrævet",
+            required: "Required!",
             validate: (value) =>
               value === watch("newPassword") ||
-              "Adgangskoderne stemmer ikke overens",
+              "The passwords are not the same",
           })}
           type="password"
-          placeholder="Bekræft ny adgangskode"
+          placeholder="Confirm new password"
           className={`${styles.input} ${
             errors.confirmPassword ? styles.inputError : ""
           }`}
@@ -106,7 +106,7 @@ const NewPasswordForm = () => {
         )}
       </div>
       <button type="submit" disabled={loading} className={styles.submitButton}>
-        {loading ? "Ændrer..." : "Skift Adgangskode"}
+        {loading ? "Changing..." : "Change Password"}
       </button>
     </form>
   );

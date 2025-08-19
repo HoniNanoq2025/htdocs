@@ -89,11 +89,7 @@
 
 /* Responsive adjustments */
 @media (max-width: 480px) {
-  .star {
-    /* Slightly smaller stars on mobile for better touch targets */
-  }
-
-  .starsContainer {
+    .starsContainer {
     gap: 3px;
   }
 }

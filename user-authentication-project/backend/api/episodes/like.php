@@ -1,11 +1,14 @@
 <?php
 // like.php - Compatible with existing LikeCounter.jsx using your existing infrastructure
-session_start();
+
 
 // Include your existing infrastructure files
 require_once '../../cors.php';      // CORS headers and OPTIONS handling
 require_once '../../database.php';  // Database connection
 require_once '../../auth.php';      // Authentication helpers
+
+session_start();
+header('Content-Type: application/json');
 
 // Initialize database connection
 $database = new Database();

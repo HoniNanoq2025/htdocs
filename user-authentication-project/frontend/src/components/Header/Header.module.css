@@ -3,7 +3,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 1rem 1.5rem;
-  background-color: #1c1c1c;
+  background-color: var(--red);
   color: white;
   position: relative;
   z-index: 10;
@@ -16,7 +16,7 @@
 
 .desktopNav {
   display: flex;
-  gap: 2rem;
+  gap: 1.5rem;
 }
 
 .link {
@@ -28,7 +28,24 @@
 
 .link:hover,
 link.active {
-  border-bottom: 2px solid white;
+  border-bottom: 2px solid var(--lightblue);
+}
+
+.desktopNav NavLink,
+a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease;
+  margin: 0 1rem;
+}
+
+.desktopNav NavLink:hover,
+a:hover,
+.desktopNav NavLink.active,
+a.active {
+  color: var(--lightblue);
+  text-decoration: none;
 }
 
 .linkButton {
@@ -38,10 +55,12 @@ link.active {
   padding: 0;
   font: inherit;
   color: inherit;
+  font-weight: 500;
 }
 
 .linkButton:hover {
-  border-bottom: 2px solid white;
+  color: var(--lightblue);
+  border-bottom: 2px solid var(--lightblue);
 }
 
 .burgerIcon {

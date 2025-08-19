@@ -8,7 +8,7 @@ export default function LikeCounter({ episodeId }) {
 
   // Load like count when component mounts
   useEffect(() => {
-    if (!episodeId) return;
+    if (episodeId === undefined || episodeId === null) return;
 
     const fetchLikes = async () => {
       try {

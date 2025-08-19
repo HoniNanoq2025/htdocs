@@ -183,11 +183,11 @@ export default function Home({ favorites, toggleFavorites, starColor }) {
                 />
               </button>
               {/* Like counter for episode ID 1 */}
-              <LikeCounter episodeId={1} initialLikes={0} />
+              <LikeCounter episodeId={0} initialLikes={0} />
             </div>
             <div className={styles.reviewContainer}>
               <p>Review</p>
-              <EpisodeReview episodeId={1} />
+              <EpisodeReview episodeId={0} />
             </div>
           </div>
           <div className={styles.episodeDescription}>

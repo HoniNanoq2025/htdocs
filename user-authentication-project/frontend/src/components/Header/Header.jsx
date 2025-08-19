@@ -40,6 +40,7 @@ export default function Header() {
           href="https://www.redbubble.com/people/ReCallTheMidPod/shop"
           target="_blank"
           rel="noopener noreferrer"
+          className={styles.link}
         >
           Shop
         </a>

@@ -28,6 +28,12 @@
   outline: none;
 }
 
+input[type="checkbox"] {
+  height: 30px;
+  width: 30px;
+  accent-color: var(--lightblue);
+}
+
 .checkboxLabel {
   display: flex;
   align-items: center;
@@ -56,5 +62,6 @@
 @media (min-width: 1000px) {
   .filterPanel {
     flex-direction: row;
+    flex-wrap: nowrap;
   }
 }

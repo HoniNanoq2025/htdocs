@@ -30,7 +30,7 @@ try {
     // Get episode ID from URL parameter or input
     $episodeId = $_GET['episode_id'] ?? $input['episode_id'] ?? null;
     
-    if (!$episodeId) {
+    if ($episodeId === null || $episodeId === '') {
         http_response_code(400);
         echo json_encode(['success' => false, 'message' => 'Episode ID is required']);
         exit;

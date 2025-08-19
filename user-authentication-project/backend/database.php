@@ -78,15 +78,33 @@ class Database {
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
         )";
+
+        // Reviews table for episodes - Updated to support both users and guests
+        $reviewsSql = "
+        CREATE TABLE IF NOT EXISTS episode_reviews (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            episode_id TEXT NOT NULL,
+            user_id INTEGER NULL,
+            session_id TEXT NULL,
+            ip_address TEXT NULL,
+            user_agent TEXT NULL,
+            rating INTEGER NOT NULL CHECK (rating >= 1 AND rating <= 5),
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+        )";
         
         try {
             $this->db->exec($usersSql);
             $this->db->exec($resetsSql);
             $this->db->exec($commentSql);
             $this->db->exec($likeSql);
+            $this->db->exec($reviewsSql);
             
             // Create indexes and constraints for episode_likes after table creation
             $this->createLikeConstraints();
+            // Create indexes and constraints for episode_reviews after table creation
+            $this->createReviewConstraints();
             
             /* echo "Tables created successfully!\n"; */
         } catch(PDOException $e) {
@@ -111,6 +129,26 @@ class Database {
         } catch(PDOException $e) {
             // If constraints already exist or there's a conflict, just log it
             error_log("Constraint creation info: " . $e->getMessage());
+        }
+    }
+
+    private function createReviewConstraints() {
+        try {
+            // Create unique constraints to prevent duplicate reviews
+            // For logged-in users: one review per episode per user
+            $this->db->exec("CREATE UNIQUE INDEX IF NOT EXISTS unique_episode_user_review ON episode_reviews(episode_id, user_id) WHERE user_id IS NOT NULL");
+            
+            // For guests: one review per episode per session
+            $this->db->exec("CREATE UNIQUE INDEX IF NOT EXISTS unique_episode_session_review ON episode_reviews(episode_id, session_id) WHERE session_id IS NOT NULL AND user_id IS NULL");
+            
+            // Create regular indexes for performance
+            $this->db->exec("CREATE INDEX IF NOT EXISTS idx_episode_reviews_episode_id ON episode_reviews(episode_id)");
+            $this->db->exec("CREATE INDEX IF NOT EXISTS idx_episode_reviews_user_id ON episode_reviews(user_id)");
+            $this->db->exec("CREATE INDEX IF NOT EXISTS idx_episode_reviews_session_id ON episode_reviews(session_id)");
+            
+        } catch(PDOException $e) {
+            // If constraints already exist or there's a conflict, just log it
+            error_log("Review constraint creation info: " . $e->getMessage());
         }
     }
     
@@ -180,6 +218,38 @@ class Database {
             
         } catch(PDOException $e) {
             error_log("Migration error: " . $e->getMessage());
+        }
+    }
+
+    // Method to migrate/create reviews table if needed
+    public function migrateReviewsTable() {
+        try {
+            // Check if reviews table exists
+            $result = $this->db->query("SELECT name FROM sqlite_master WHERE type='table' AND name='episode_reviews'");
+            $tableExists = $result->fetch() !== false;
+            
+            if (!$tableExists) {
+                // Create the reviews table if it doesn't exist
+                $reviewsSql = "
+                CREATE TABLE episode_reviews (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    episode_id TEXT NOT NULL,
+                    user_id INTEGER NULL,
+                    session_id TEXT NULL,
+                    ip_address TEXT NULL,
+                    user_agent TEXT NULL,
+                    rating INTEGER NOT NULL CHECK (rating >= 1 AND rating <= 5),
+                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+                )";
+                
+                $this->db->exec($reviewsSql);
+                $this->createReviewConstraints();
+            }
+            
+        } catch(PDOException $e) {
+            error_log("Review migration error: " . $e->getMessage());
         }
     }
 }

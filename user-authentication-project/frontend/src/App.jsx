@@ -1,5 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import { ProtectedRoute } from "./auth/ProtectedRoute/ProtectedRoute";
+import { useState, useEffect } from "react";
 import { useAuth } from "./auth/AuthContext/AuthContext";
 import Home from "./pages/Home/Home";
 import About from "./pages/About/About";

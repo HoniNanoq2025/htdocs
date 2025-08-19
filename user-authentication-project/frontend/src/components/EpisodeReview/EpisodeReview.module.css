@@ -1,0 +1,126 @@
+/* EpisodeReview.module.css */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.starsContainer {
+  display: flex;
+  gap: 2px;
+  align-items: center;
+}
+
+.star {
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.star:hover {
+  transform: scale(1.1);
+}
+
+.star.disabled {
+  cursor: not-allowed;
+  transform: none;
+}
+
+.averageContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  margin-top: 4px;
+}
+
+.averageRating {
+  font-size: 12px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.averageStars {
+  display: flex;
+  gap: 1px;
+  align-items: center;
+}
+
+.totalReviews {
+  font-size: 10px;
+  text-align: center;
+  opacity: 0.8;
+  margin-top: 2px;
+}
+
+.loading {
+  font-size: 12px;
+  color: var(--light, #ffffff);
+  padding: 4px;
+}
+
+.error {
+  font-size: 14px;
+  color: #ff6b6b;
+  cursor: help;
+  margin-bottom: 4px;
+}
+
+.submitting {
+  font-size: 10px;
+  color: var(--light, #ffffff);
+  opacity: 0.7;
+  margin-top: 2px;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.4;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  .star {
+    /* Slightly smaller stars on mobile for better touch targets */
+  }
+
+  .starsContainer {
+    gap: 3px;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .star {
+    outline: 1px solid transparent;
+  }
+
+  .star:focus {
+    outline: 2px solid currentColor;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .star {
+    transition: none;
+  }
+
+  .star:hover {
+    transform: none;
+  }
+
+  .submitting {
+    animation: none;
+    opacity: 0.7;
+  }
+}

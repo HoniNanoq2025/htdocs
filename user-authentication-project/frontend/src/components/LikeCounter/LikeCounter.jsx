@@ -47,12 +47,22 @@ export default function LikeCounter({ episodeId }) {
         }
       );
 
-      const result = await response.json();
+      const text = await response.text(); // read raw response
+      console.log("Raw response from like.php:", text);
+
+      let result;
+      try {
+        result = JSON.parse(text);
+      } catch (err) {
+        console.error("Invalid JSON from like.php:", text);
+        return;
+      }
+
       if (result.success) {
         setCount(result.likeCount);
         setHasLiked(result.hasLiked);
       } else {
-        alert(result.message);
+        alert(result.message || "Failed to toggle like");
       }
     } catch (error) {
       console.error("Error toggling like:", error);

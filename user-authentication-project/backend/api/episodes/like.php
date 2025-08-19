@@ -7,7 +7,7 @@ require_once '../../cors.php';      // CORS headers and OPTIONS handling
 require_once '../../database.php';  // Database connection
 require_once '../../auth.php';      // Authentication helpers
 
-session_start();
+/* session_start(); */
 header('Content-Type: application/json');
 
 // Initialize database connection

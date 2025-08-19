@@ -1,6 +1,12 @@
 <?php
-require_once '../../database.php'; // Adjust path if needed
+require_once __DIR__ . '/../../cors.php';   // <-- path using __DIR__ is safest
+require_once __DIR__ . '/../../database.php';
+require_once __DIR__ . '/../../auth.php';
 header("Content-Type: application/json");
+
+// Initialize DB connection
+$database = new Database();
+$pdo = $database->getConnection();
 
 // Simulate user ID — in production, get this from session/token
 $userId = 1;

@@ -1,3 +1,4 @@
+// frontend/src/utils/localStorage.js - Utility functions for localStorage operations
 // Const variabel der definerer key til localStorage - bruges som identifier for vores data
 const FAVORITES_KEY = "favoriteEpisodesIds";
 const LIKE_COUNTS_KEY = "likeCountsIds";

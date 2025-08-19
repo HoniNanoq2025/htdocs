@@ -1,6 +1,11 @@
+const API_BASE_URL = "http://localhost:8000/api/episodes";
+
 export async function getFavoritesFromBackend() {
   try {
-    const response = await fetch("/backend/api/episodes/favorites.php");
+    const response = await fetch(`${API_BASE_URL}/favorites.php`, {
+      credentials: "include",
+      headers: { "Content-Type": "application/json" },
+    });
     if (!response.ok) throw new Error("Failed to fetch favorites");
     return await response.json();
   } catch (err) {
@@ -11,16 +16,16 @@ export async function getFavoritesFromBackend() {
 
 export async function toggleFavoriteOnBackend(episodeId) {
   try {
-    const response = await fetch("/backend/api/episodes/favorites.php", {
+    const response = await fetch(`${API_BASE_URL}/favorites.php`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
+      credentials: "include",
       body: JSON.stringify({ episodeId }),
     });
-
     if (!response.ok) throw new Error("Failed to toggle favorite");
-    return true;
+    return await response.json();
   } catch (err) {
     console.error("Error toggling favorite:", err);
-    return false;
+    return { success: false };
   }
 }

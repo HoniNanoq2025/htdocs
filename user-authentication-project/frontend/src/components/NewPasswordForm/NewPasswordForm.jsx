@@ -100,7 +100,7 @@ const NewPasswordForm = () => {
           aria-invalid={errors.confirmPassword ? "true" : "false"}
         />
         {errors.confirmPassword && (
-          <p role="alert" className={styles.errors}>
+          <p role="alert" className={styles.error}>
             {errors.confirmPassword.message}
           </p>
         )}

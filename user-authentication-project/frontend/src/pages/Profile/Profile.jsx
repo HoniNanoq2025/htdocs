@@ -1,5 +1,6 @@
 import { AuthDemo } from "../../auth/AuthContext/AuthContext";
 import NewPasswordForm from "../../components/NewPasswordForm/NewPasswordForm";
+import FavoritesList from "../../components/FavoritesList/FavoritesList";
 import { Link } from "react-router-dom";
 import styles from "./Profile.module.css";
 
@@ -35,7 +36,11 @@ export default function Profile() {
         </svg>
       </div>
       <section className={styles.profileContainer}>
-        <div className={styles.profileContent}></div>
+        <div className={styles.profileContent}>
+          <div className={styles.favoriteEpisodes}>
+            <FavoritesList />
+          </div>
+        </div>
         <div className={styles.profileContent}>
           <AuthDemo />
           <div className={styles.containerForm}>

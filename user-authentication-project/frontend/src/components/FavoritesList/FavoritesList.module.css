@@ -1,0 +1,60 @@
+.favorites {
+  margin-top: 1.5rem;
+}
+
+.heading {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.listItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 0.5rem;
+  margin-bottom: 0.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  transition: background 0.2s;
+}
+
+.listItem:hover {
+  background: #fafafa;
+}
+
+.thumbnail {
+  width: 60px;
+  height: auto;
+  border-radius: 0.25rem;
+  object-fit: cover;
+}
+
+.title {
+  flex: 1;
+}
+
+.heartButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #e02424; /* red */
+  transition: color 0.2s;
+}
+
+.heartButton:hover {
+  color: #c81e1e; /* darker red */
+}
+
+.message {
+  font-size: 0.95rem;
+  color: #666;
+}

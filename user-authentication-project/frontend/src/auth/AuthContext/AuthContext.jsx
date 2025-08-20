@@ -38,7 +38,7 @@ export const AuthProvider = ({ children }) => {
       });
 
       if (response.ok) {
-        const text = await response.text(); // get raw text first
+        const text = await response.text();
         if (text) {
           try {
             const userData = JSON.parse(text);
@@ -50,16 +50,15 @@ export const AuthProvider = ({ children }) => {
             setIsAuthenticated(false);
           }
         } else {
-          // Empty response body
           setUser(null);
           setIsAuthenticated(false);
         }
       } else if (response.status === 401) {
-        // 401 is expected when not logged in - don't log as error
+        // 401 is expected when not logged in - handle silently
         setUser(null);
         setIsAuthenticated(false);
       } else {
-        // Other errors (500, network issues, etc.)
+        // Only log unexpected errors (500, network issues, etc.)
         console.error(
           "Unexpected auth check error:",
           response.status,
@@ -69,8 +68,10 @@ export const AuthProvider = ({ children }) => {
         setIsAuthenticated(false);
       }
     } catch (error) {
-      // Only log actual network/connection errors
-      console.error("Auth check network error:", error);
+      // Only log actual network/connection errors, not expected 401s
+      if (!error.message.includes("401")) {
+        console.error("Auth check network error:", error);
+      }
       setUser(null);
       setIsAuthenticated(false);
     } finally {

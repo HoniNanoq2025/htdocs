@@ -17,11 +17,11 @@ const LoginForm = () => {
     const result = await login(data.email, data.password);
 
     if (result.success) {
-      alert("Du er nu logget ind!");
+      alert("You are now logged in!");
       reset();
       window.location.href = "/profile";
     } else {
-      alert(result.message || "Login mislykkedes.");
+      alert(result.message || "Login failed.");
     }
   };
 
@@ -32,10 +32,10 @@ const LoginForm = () => {
         {/* Your existing input fields stay exactly the same */}
         <input
           {...register("email", {
-            required: "Email er påkrævet",
+            required: "Email is required",
             pattern: {
               value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-              message: "Ugyldig email",
+              message: "Invalid email",
             },
           })}
           type="email"
@@ -50,14 +50,14 @@ const LoginForm = () => {
         )}
         <input
           {...register("password", {
-            required: "Adgangskode er påkrævet",
+            required: "Password is required",
             minLength: {
               value: 8,
-              message: "Adgangskoden skal indeholde mindst 8 tegn",
+              message: "The password must containat least 8 characters",
             },
           })}
           type="password"
-          placeholder="Adgangskode"
+          placeholder="Password"
           className={`${styles.input} ${
             errors.password ? styles.inputError : ""
           }`}
@@ -69,12 +69,12 @@ const LoginForm = () => {
           </p>
         )}
         <button type="submit" className={styles.submitBtn} disabled={loading}>
-          {loading ? "Logger ind..." : "Login"}
+          {loading ? "Logging in..." : "Login"}
         </button>
       </form>
       <div className={styles.forgotPassword}>
         <Link to="/forgot-password" className={styles.forgotPasswordLink}>
-          Glemt din adgangskode?
+          Forgot your password?
         </Link>
       </div>
     </div>

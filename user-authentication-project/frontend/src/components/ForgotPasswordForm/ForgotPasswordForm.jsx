@@ -23,20 +23,20 @@ function ForgotPasswordForm() {
 
   return (
     <div className={styles.container}>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
         <h2 className={styles.formHeader}>Forgotten Password</h2>
 
-        <div>
+        <div className={styles.formGroup}>
           <input
             type="email"
             {...register("email", {
-              required: "Email eis required",
+              required: "Email is required",
               pattern: {
                 value: /^\S+@\S+$/i,
                 message: "Invalid email",
               },
             })}
-            placeholder="Write your email"
+            placeholder="Type in your email..."
           />
           {errors.email && (
             <p style={{ color: "red" }}>{errors.email.message}</p>

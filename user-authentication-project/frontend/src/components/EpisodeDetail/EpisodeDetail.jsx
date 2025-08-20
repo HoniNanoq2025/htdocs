@@ -4,6 +4,7 @@ import { FaChevronLeft, FaChevronRight, FaRegHeart } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa6";
 import { IoTimeSharp, IoCalendarSharp } from "react-icons/io5";
 import EpisodeReview from "../EpisodeReview/EpisodeReview";
+import Comments from "../Comments/Comments";
 import styles from "./EpisodeDetail.module.css";
 
 export default function EpisodeDetail({ favorites, toggleFavorites }) {
@@ -299,6 +300,9 @@ export default function EpisodeDetail({ favorites, toggleFavorites }) {
                   episodeId={episode.Id}
                   starColor="var(--darkblue)"
                 />
+              </div>
+              <div className={styles.commentSection}>
+                <Comments episodeId={episode.Id} />
               </div>
             </div>
           </div>

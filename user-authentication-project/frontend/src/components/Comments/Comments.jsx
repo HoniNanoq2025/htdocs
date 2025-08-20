@@ -197,12 +197,9 @@ const Comments = ({ pageUrl = "/" }) => {
       <div className={styles.commentsSection}>
         <h3 className={styles.title}>Comments</h3>
         <div className={styles.loginPrompt}>
+          {/* prettier-ignore */}
           <p>
-            Please{" "}
-            <a href="/login" className={styles.loginLink}>
-              log in
-            </a>{" "}
-            to view and post comments.
+            Please <a href="/login" className={styles.loginLink}>log in</a> to view and post comments.
           </p>
         </div>
       </div>

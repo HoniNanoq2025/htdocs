@@ -1,10 +1,10 @@
 /* frontend/src/components/Comments/Comments.module.css */
 
 .commentsSection {
-  max-width: 800px;
-  margin: 2rem auto;
+  width: 620px;
+  margin: 1rem;
   padding: 1.5rem;
-  background: #fff;
+  background: var(--iframe);
   border-radius: 12px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
@@ -13,7 +13,7 @@
   font-size: 1.5rem;
   font-weight: 600;
   margin-bottom: 1.5rem;
-  color: #2d3748;
+  color:var(--light);
   border-bottom: 2px solid #e2e8f0;
   padding-bottom: 0.5rem;
 }
@@ -46,11 +46,11 @@
 }
 
 .commentForm {
-  background: #f7fafc;
+  background: var(--lightblue);
   padding: 1.5rem;
   border-radius: 8px;
   margin-bottom: 2rem;
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--lightblue);
 }
 
 .formGroup {
@@ -61,7 +61,7 @@
   display: block;
   font-weight: 500;
   margin-bottom: 0.5rem;
-  color: #4a5568;
+  color: var(--iframe);
   font-size: 0.9rem;
 }
 
@@ -97,7 +97,7 @@
 }
 
 .submitButton {
-  background: #3182ce;
+  background: var(--red);
   color: white;
   border: none;
   padding: 0.75rem 1.5rem;
@@ -109,7 +109,7 @@
 }
 
 .submitButton:hover:not(:disabled) {
-  background: #2c5aa0;
+  background: var(--darkblue);
 }
 
 .submitButton:disabled {
@@ -298,44 +298,5 @@
   .cancelButton {
     font-size: 0.7rem;
     padding: 0.2rem 0.6rem;
-  }
-}
-
-/* Dark mode support (optional) */
-@media (prefers-color-scheme: dark) {
-  .commentsSection {
-    background: #2d3748;
-    color: #e2e8f0;
-  }
-
-  .title {
-    color: #e2e8f0;
-    border-bottom-color: #4a5568;
-  }
-
-  .commentForm {
-    background: #374151;
-    border-color: #4a5568;
-  }
-
-  .comment {
-    background: #374151;
-    border-color: #4a5568;
-  }
-
-  .comment:hover {
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-  }
-
-  .textarea,
-  .editTextarea {
-    background: #2d3748;
-    color: #e2e8f0;
-    border-color: #4a5568;
-  }
-
-  .textarea:focus,
-  .editTextarea:focus {
-    border-color: #63b3ed;
   }
 }

@@ -6,6 +6,7 @@
   font-size: 1.25rem;
   font-weight: bold;
   margin-bottom: 1rem;
+  color: #333;
 }
 
 .list {
@@ -19,16 +20,18 @@
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  padding: 0.5rem;
+  padding: 0.75rem;
   border: 1px solid #ddd;
   border-radius: 0.5rem;
   margin-bottom: 0.5rem;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-  transition: background 0.2s;
+  transition: all 0.2s ease;
+  background: white;
 }
 
 .listItem:hover {
   background: #fafafa;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 .thumbnail {
@@ -36,10 +39,19 @@
   height: auto;
   border-radius: 0.25rem;
   object-fit: cover;
+  flex-shrink: 0;
 }
 
 .title {
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.episodeInfo {
+  color: #666;
+  font-size: 0.85rem;
 }
 
 .heartButton {
@@ -47,14 +59,59 @@
   border: none;
   cursor: pointer;
   color: #e02424; /* red */
-  transition: color 0.2s;
+  transition: all 0.2s ease;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .heartButton:hover {
   color: #c81e1e; /* darker red */
+  background: rgba(224, 36, 36, 0.1);
+  transform: scale(1.1);
+}
+
+.heartButton:active {
+  transform: scale(0.95);
 }
 
 .message {
   font-size: 0.95rem;
   color: #666;
+  text-align: center;
+  padding: 2rem 1rem;
+  background: #f9f9f9;
+  border-radius: 0.5rem;
+  border: 1px solid #e0e0e0;
+}
+
+.error {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  text-align: center;
+}
+
+.error p {
+  color: #dc2626;
+  margin: 0 0 1rem 0;
+  font-weight: 500;
+}
+
+.retryButton {
+  background: #dc2626;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: background 0.2s;
+}
+
+.retryButton:hover {
+  background: #b91c1c;
 }

@@ -1,0 +1,88 @@
+.heroContainerProfile {
+  background-image: url(/images/wonjong-ha-vaHSY41OmjA-unsplash.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: bottom center;
+  background-attachment: fixed;
+  height: 300px;
+  width: 100vw;
+  display: grid;
+  place-content: center;
+}
+
+.headlineProfile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin: auto;
+  padding-bottom: 65px;
+}
+
+h1 {
+  color: var(--red);
+  font-size: clamp(40px, 6vw, 100px);
+  font-weight: 300;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.customShapeDividerBottom {
+  position: relative;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+  transform: rotate(180deg);
+  margin-top: -120px;
+  margin-bottom: -1px;
+  z-index: 800;
+}
+
+.customShapeDividerBottom svg {
+  position: relative;
+  display: block;
+  width: calc(123% + 1.3px);
+  height: 122px;
+}
+
+.shapeFill {
+  fill: var(--darkblue);
+}
+
+.profileContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.deleteProfileLink {
+  margin: 30px auto;
+  padding: 10px 50px;
+  width: 100%;
+  max-width: 400px;
+  background-color: rgb(148, 19, 19);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  text-align: center;
+}
+
+.deleteLink {
+  color: white;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+@media (min-width: 1000px) {
+  .profileContainer {
+    width: 90%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    padding: 20px;
+  }
+}

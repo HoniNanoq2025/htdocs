@@ -11,6 +11,8 @@ const Comments = ({ pageUrl = "/" }) => {
   const [error, setError] = useState("");
   const [editingId, setEditingId] = useState(null);
   const [editContent, setEditContent] = useState("");
+  const [replyingTo, setReplyingTo] = useState(null);
+  const [replyContent, setReplyContent] = useState("");
 
   const API_BASE = "http://localhost:8000/api";
 
@@ -187,6 +189,62 @@ const Comments = ({ pageUrl = "/" }) => {
     setEditContent("");
   };
 
+  const startReply = (comment) => {
+    setReplyingTo(comment.id);
+    setReplyContent(`@${comment.username} `);
+  };
+
+  const cancelReply = () => {
+    setReplyingTo(null);
+    setReplyContent("");
+  };
+
+  const handleReply = async (e) => {
+    e.preventDefault();
+
+    if (!replyContent.trim()) {
+      setError("Please enter a reply");
+      return;
+    }
+
+    if (replyContent.length > 1000) {
+      setError("Reply is too long (max 1000 characters)");
+      return;
+    }
+
+    try {
+      setLoading(true);
+      setError("");
+
+      const response = await fetch(`${API_BASE}/comments.php`, {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          content: replyContent.trim(),
+          page_url: pageUrl,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        setComments((prev) => [data.comment, ...prev]);
+        setReplyingTo(null);
+        setReplyContent("");
+      } else {
+        setError(data.message || "Failed to add reply");
+      }
+    } catch (err) {
+      console.error("Error adding reply:", err);
+      setError("Failed to add reply");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     return date.toLocaleString();
@@ -294,23 +352,71 @@ const Comments = ({ pageUrl = "/" }) => {
                 ) : (
                   <>
                     <p className={styles.commentText}>{comment.content}</p>
-                    {comment.is_owner && (
+
+                    {/* Action buttons - only show if not currently replying to this comment */}
+                    {replyingTo !== comment.id && (
                       <div className={styles.commentActions}>
-                        <button
-                          onClick={() => startEdit(comment)}
-                          className={styles.editButton}
-                          disabled={loading}
-                        >
-                          Edit
-                        </button>
-                        <button
-                          onClick={() => handleDeleteComment(comment.id)}
-                          className={styles.deleteButton}
-                          disabled={loading}
-                        >
-                          Delete
-                        </button>
+                        {comment.is_owner ? (
+                          // Show Edit/Delete for comment owner
+                          <>
+                            <button
+                              onClick={() => startEdit(comment)}
+                              className={styles.editButton}
+                              disabled={loading}
+                            >
+                              Edit
+                            </button>
+                            <button
+                              onClick={() => handleDeleteComment(comment.id)}
+                              className={styles.deleteButton}
+                              disabled={loading}
+                            >
+                              Delete
+                            </button>
+                          </>
+                        ) : (
+                          // Show Reply for other users' comments
+                          <button
+                            onClick={() => startReply(comment)}
+                            className={styles.replyButton}
+                            disabled={loading}
+                          >
+                            Reply
+                          </button>
+                        )}
                       </div>
+                    )}
+
+                    {/* Reply Form */}
+                    {replyingTo === comment.id && (
+                      <form onSubmit={handleReply} className={styles.replyForm}>
+                        <textarea
+                          value={replyContent}
+                          onChange={(e) => setReplyContent(e.target.value)}
+                          placeholder={`Reply to ${comment.username}...`}
+                          className={styles.replyTextarea}
+                          rows={2}
+                          maxLength={1000}
+                          disabled={loading}
+                        />
+                        <div className={styles.replyActions}>
+                          <button
+                            type="submit"
+                            className={styles.replySubmitButton}
+                            disabled={loading || !replyContent.trim()}
+                          >
+                            {loading ? "Replying..." : "Reply"}
+                          </button>
+                          <button
+                            type="button"
+                            onClick={cancelReply}
+                            className={styles.cancelButton}
+                            disabled={loading}
+                          >
+                            Cancel
+                          </button>
+                        </div>
+                      </form>
                     )}
                   </>
                 )}

@@ -13,7 +13,7 @@
   font-size: 1.5rem;
   font-weight: 600;
   margin-bottom: 1.5rem;
-  color:var(--light);
+  color: var(--light);
   border-bottom: 2px solid #e2e8f0;
   padding-bottom: 0.5rem;
 }
@@ -103,6 +103,7 @@
   border: none;
   padding: 0.75rem 1.5rem;
   border-radius: 6px;
+  font-family: inherit;
   font-weight: 500;
   cursor: pointer;
   transition: background-color 0.2s ease;
@@ -190,12 +191,14 @@
 
 .editButton,
 .deleteButton,
+.replyButton,
 .saveButton,
 .cancelButton {
   background: none;
   border: 1px solid;
   padding: 0.25rem 0.75rem;
   border-radius: 4px;
+  font-family: inherit;
   font-size: 0.75rem;
   font-weight: 500;
   cursor: pointer;
@@ -213,12 +216,22 @@
 }
 
 .deleteButton {
-  color: #e53e3e;
-  border-color: #e53e3e;
+  color: var(--red);
+  border-color: var(--red);
 }
 
 .deleteButton:hover:not(:disabled) {
-  background: #e53e3e;
+  background: var(--red);
+  color: white;
+}
+
+.replyButton {
+  color: purple;
+  border-color: purple;
+}
+
+.replyButton:hover:not(:disabled) {
+  background: purple;
   color: white;
 }
 
@@ -244,6 +257,7 @@
 
 .editButton:disabled,
 .deleteButton:disabled,
+.replyButton:disabled,
 .saveButton:disabled,
 .cancelButton:disabled {
   opacity: 0.5;

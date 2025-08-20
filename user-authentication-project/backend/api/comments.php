@@ -48,7 +48,7 @@ function handleGetComments($db) {
                 c.created_at,
                 c.updated_at,
                 u.username,
-                c.user_id = ? as is_owner
+                CASE WHEN c.user_id = ? THEN 1 ELSE 0 END as is_owner
             FROM comments c
             JOIN users u ON c.user_id = u.id
             WHERE c.page_url = ?
@@ -58,6 +58,11 @@ function handleGetComments($db) {
         $stmt = $db->prepare($sql);
         $stmt->execute([$_SESSION['user_id'], $page_url]);
         $comments = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
+        // Convert is_owner to boolean for cleaner frontend handling
+        foreach ($comments as &$comment) {
+            $comment['is_owner'] = (bool) $comment['is_owner'];
+        }
         
         echo json_encode([
             "success" => true,
@@ -110,8 +115,7 @@ function handleAddComment($db) {
                 c.page_url,
                 c.created_at,
                 c.updated_at,
-                u.username,
-                true as is_owner
+                u.username
             FROM comments c
             JOIN users u ON c.user_id = u.id
             WHERE c.id = ?
@@ -120,6 +124,7 @@ function handleAddComment($db) {
         $stmt = $db->prepare($sql);
         $stmt->execute([$commentId]);
         $comment = $stmt->fetch(PDO::FETCH_ASSOC);
+        $comment['is_owner'] = true; // User just created this comment
         
         echo json_encode([
             "success" => true,

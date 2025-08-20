@@ -301,6 +301,7 @@ export default function EpisodeDetail({ favorites, toggleFavorites }) {
                   starColor="var(--darkblue)"
                 />
               </div>
+              <hr></hr>
               <div className={styles.commentSection}>
                 <Comments episodeId={episode.Id} />
               </div>

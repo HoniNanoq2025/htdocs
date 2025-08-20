@@ -61,10 +61,10 @@ const ResetPasswordForm = () => {
     return (
       <div className={styles.container}>
         <div className={styles.form}>
-          <h2 className={styles.formHeader}>Nulstil adgangskode</h2>
-          <p className={styles.error}>Dette link er ugyldigt eller udløbet.</p>
+          <h2 className={styles.formHeader}>Reset Password</h2>
+          <p className={styles.error}>This link is invalid or expired.</p>
           <Link to="/forgot-password" className={styles.link}>
-            Anmod om nyt link
+            Request new link
           </Link>
         </div>
       </div>

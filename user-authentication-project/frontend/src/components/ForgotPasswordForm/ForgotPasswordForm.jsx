@@ -17,26 +17,26 @@ function ForgotPasswordForm() {
       const result = await forgotPassword(data.email);
       setMessage(result.message);
     } catch (error) {
-      setMessage("Noget gik galt. Prøv venligst igen.");
+      setMessage("Something went wrong. Please try again.");
     }
   };
 
   return (
     <div className={styles.container}>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <h2>Glemt Adgangskode</h2>
+        <h2 className={styles.formHeader}>Forgotten Password</h2>
 
         <div>
           <input
             type="email"
             {...register("email", {
-              required: "Email er påkrævet",
+              required: "Email eis required",
               pattern: {
                 value: /^\S+@\S+$/i,
-                message: "Ugyldig email",
+                message: "Invalid email",
               },
             })}
-            placeholder="Indtast din email"
+            placeholder="Write your email"
           />
           {errors.email && (
             <p style={{ color: "red" }}>{errors.email.message}</p>
@@ -44,7 +44,7 @@ function ForgotPasswordForm() {
         </div>
 
         <button type="submit" disabled={loading} className={styles.btnSubmit}>
-          {loading ? "Sender..." : "Nulstil Adgangskode"}
+          {loading ? "Sending..." : "Reset Password"}
         </button>
 
         {message && <p>{message}</p>}

@@ -37,6 +37,14 @@ input::placeholder {
   font-family: "Jost", sans-serif;
 }
 
+.errors {
+  color: var(--light);
+  font-family: "Jost", sans-serif;
+  font-size: 14px;
+  margin-top: -10px;
+  margin-bottom: 10px;
+}
+
 .submitBtn {
   width: 100%;
   padding: 10px;

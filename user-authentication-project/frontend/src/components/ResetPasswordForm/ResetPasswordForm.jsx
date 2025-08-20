@@ -24,14 +24,14 @@ const ResetPasswordForm = () => {
   useEffect(() => {
     if (!token) {
       setMessage(
-        "Ugyldigt eller manglende token. Anmod venligst om et nyt link."
+        "Invalid or missing token. Please request a new link."
       );
     }
   }, [token]);
 
   const onSubmit = async (data) => {
     if (!token) {
-      setMessage("Ugyldigt token. Anmod venligst om et nyt link.");
+      setMessage("Invalid token. Please request a new link.");
       return;
     }
 
@@ -40,7 +40,7 @@ const ResetPasswordForm = () => {
 
       if (result.success) {
         setMessage(
-          "Din adgangskode er blevet nulstillet! Du omdirigeres til login siden..."
+          "Your password has been reset! You will be redirected to the login page..."
         );
         reset();
         // Redirect to login page after 3 seconds
@@ -48,11 +48,11 @@ const ResetPasswordForm = () => {
           navigate("/login");
         }, 3000);
       } else {
-        setMessage(result.message || "Fejl ved nulstilling af adgangskode");
+        setMessage(result.message || "Error when resetting password");
       }
     } catch (error) {
       console.error("Reset password error:", error);
-      setMessage("Der opstod en fejl. Prøv venligst igen.");
+      setMessage("An error occured. Please try again.");
     }
   };
 
@@ -78,19 +78,19 @@ const ResetPasswordForm = () => {
         onSubmit={handleSubmit(onSubmit)}
         action="submit"
       >
-        <h2 className={styles.formHeader}>Nulstil din adgangskode</h2>
+        <h2 className={styles.formHeader}>Reset Your Password</h2>
 
         {/* INPUT NEW PASSWORD */}
         <input
           {...register("newPassword", {
-            required: "Ny adgangskode er påkrævet",
+            required: "New password is required",
             minLength: {
               value: 8,
-              message: "Adgangskoden skal indeholde mindst 8 tegn",
+              message: "The password must containat least 8 characters",
             },
           })}
           type="password"
-          placeholder="Ny adgangskode (min. 8 tegn)"
+          placeholder="New password (min. 8 characters)"
           className={`${styles.input} ${
             errors.newPassword ? styles.inputError : ""
           }`}
@@ -105,13 +105,13 @@ const ResetPasswordForm = () => {
         {/* CONFIRM NEW PASSWORD */}
         <input
           {...register("confirmPassword", {
-            required: "Bekræft adgangskode er påkrævet",
+            required: "Confirmation of password is required",
             validate: (value) =>
               value === watch("newPassword") ||
-              "Adgangskoderne stemmer ikke overens",
+              "The passwords do match!",
           })}
           type="password"
-          placeholder="Bekræft ny adgangskode"
+          placeholder="Confirm new password"
           className={`${styles.input} ${
             errors.confirmPassword ? styles.inputError : ""
           }`}
@@ -128,13 +128,13 @@ const ResetPasswordForm = () => {
           className={styles.resetSubmitBtn}
           disabled={loading}
         >
-          {loading ? "Nulstiller..." : "Nulstil Adgangskode"}
+          {loading ? "Resetting..." : "Reset Password"}
         </button>
 
         {message && (
           <p
             className={`${styles.message} ${
-              message.includes("nulstillet") ? styles.success : styles.error
+              message.includes("reset") ? styles.success : styles.error
             }`}
           >
             {message}
@@ -143,10 +143,10 @@ const ResetPasswordForm = () => {
 
         <div className={styles.links}>
           <Link to="/login" className={styles.link}>
-            Tilbage til login
+            Back to Login
           </Link>
           <Link to="/forgot-password" className={styles.link}>
-            Anmod om nyt link
+            Request new link
           </Link>
         </div>
       </form>

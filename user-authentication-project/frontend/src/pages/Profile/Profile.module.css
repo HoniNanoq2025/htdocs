@@ -51,11 +51,11 @@ h1 {
 }
 
 .profileContainer {
-  width: 100%;
+  width: 90%;
   display: flex;
   justify-content: center;
-  align-items: center;
   flex-direction: column;
+  margin: 50px auto;
 }
 
 .deleteProfileLink {
@@ -84,5 +84,7 @@ h1 {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     padding: 20px;
+    gap: 20px;
+    margin: 50px auto;
   }
 }

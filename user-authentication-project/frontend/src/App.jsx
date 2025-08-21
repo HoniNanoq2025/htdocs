@@ -57,15 +57,24 @@ export default function App() {
 
   const toggleFavorites = async (id) => {
     if (isAuthenticated) {
-      const success = await toggleFavoriteOnBackend(id);
-      if (success) {
+      const result = await toggleFavoriteOnBackend(id);
+
+      if (result.success) {
         setFavorites((prev) =>
-          prev.includes(id) ? prev.filter((fav) => fav !== id) : [...prev, id]
+          prev.includes(Number(id))
+            ? prev.filter((fav) => fav !== Number(id))
+            : [...prev, Number(id)]
         );
+      } else {
+        console.error("Failed to toggle favorite:", result.error);
+        // Optionally show a toast or message to user here
       }
     } else {
+      // Offline/localStorage behavior for non-authenticated users
       setFavorites((prev) =>
-        prev.includes(id) ? prev.filter((fav) => fav !== id) : [...prev, id]
+        prev.includes(Number(id))
+          ? prev.filter((fav) => fav !== Number(id))
+          : [...prev, Number(id)]
       );
     }
   };

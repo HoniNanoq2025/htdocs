@@ -62,7 +62,7 @@ switch ($path) {
         }
         break;
         
-    case '/api/reset-password':
+    case '/api/reset-password.php':
         if ($requestMethod === 'POST') {
             include __DIR__ . '/api/reset-password.php';
             exit();

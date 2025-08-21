@@ -49,12 +49,11 @@ const FavoritesList = () => {
 
       console.log("Toggle result:", result);
 
-      if (result.success) {
-        // Refresh favorites list from backend
+      if (result && result.success !== false) {
+        // treat anything non-failure as success
         const updatedFavs = await getFavoritesFromBackend();
         setFavorites(Array.isArray(updatedFavs) ? updatedFavs : []);
       } else {
-        console.error("Toggle failed:", result.error || "Unknown error");
         setError(result.error || "Failed to update favorite");
       }
     } catch (err) {

@@ -6,10 +6,10 @@ export async function getFavoritesFromBackend() {
   try {
     console.log(
       "🔍 Fetching favorites from:",
-      `${API_BASE_URL}/episodes/favorites`
+      `${API_BASE_URL}/episodes/favorites.php`
     );
 
-    const response = await fetch(`${API_BASE_URL}/episodes/favorites`, {
+    const response = await fetch(`${API_BASE_URL}/episodes/favorites.php`, {
       credentials: "include",
       headers: { "Content-Type": "application/json" },
     });
@@ -48,13 +48,10 @@ export async function getFavoritesFromBackend() {
 
 export async function toggleFavoriteOnBackend(episodeId) {
   try {
-    const url = `${API_BASE_URL}/episodes/favorites`;
+    const url = `${API_BASE_URL}/episodes/favorites.php`;
     const payload = { episodeId };
 
-    console.log("🔄 Toggling favorite:");
-    console.log("  URL:", url);
-    console.log("  Payload:", payload);
-    console.log("  Episode ID type:", typeof episodeId, episodeId);
+    console.log("🔄 Toggling favorite:", payload);
 
     const response = await fetch(url, {
       method: "POST",
@@ -62,48 +59,36 @@ export async function toggleFavoriteOnBackend(episodeId) {
         "Content-Type": "application/json",
         Accept: "application/json",
       },
-      credentials: "include",
+      credentials: "include", // ensures user session is sent
       body: JSON.stringify(payload),
     });
-
-    console.log("📡 Toggle response status:", response.status);
-    console.log(
-      "📡 Toggle response headers:",
-      Object.fromEntries(response.headers)
-    );
 
     const text = await response.text();
     console.log("📄 Raw toggle response:", text);
 
     if (!response.ok) {
-      console.error(
-        `❌ Failed to toggle favorite: ${response.status} ${response.statusText}`
-      );
-      console.error("Response body:", text);
-
-      // Try to parse error response
+      let errorMessage = `HTTP ${response.status}`;
       try {
         const errorData = JSON.parse(text);
-        return {
-          success: false,
-          error: errorData.error || `HTTP ${response.status}`,
-        };
+        errorMessage = errorData.error || errorMessage;
       } catch (e) {
-        return {
-          success: false,
-          error: `HTTP ${response.status}: ${text.substring(0, 100)}...`,
-        };
+        errorMessage = text.substring(0, 100);
       }
+      return { success: false, error: errorMessage };
     }
 
+    // Always return a consistent object
     try {
-      const result = JSON.parse(text);
-      console.log("✅ Parsed toggle result:", result);
-      return result;
+      const data = JSON.parse(text);
+      if (data && typeof data === "object" && "success" in data) {
+        return { success: !!data.success, ...data };
+      } else {
+        // Assume success if backend didn't provide explicit "success"
+        return { success: true, data };
+      }
     } catch (parseError) {
       console.error("❌ Failed to parse toggle response JSON:", parseError);
-      console.error("Response text:", text);
-      return { success: false, error: "Invalid JSON response" };
+      return { success: false, error: "Invalid JSON response from server" };
     }
   } catch (err) {
     console.error("❌ Network error toggling favorite:", err);

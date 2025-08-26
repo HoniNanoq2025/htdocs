@@ -5,7 +5,7 @@ export default function Contact() {
   return (
     <main className={styles.contactPage}>
       <section className={styles.heroContainerContact}>
-        <div className={styles.headline}>
+        <div className={styles.headlineContact}>
           <h1>Contact Us</h1>
         </div>
       </section>
@@ -32,7 +32,9 @@ export default function Contact() {
           ></path>
         </svg>
       </div>
-      <ContactForm />
+      <div className={styles.containerForm}>
+        <ContactForm />
+      </div>
     </main>
   );
 }

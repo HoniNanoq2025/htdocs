@@ -10,7 +10,7 @@
   place-content: center;
 }
 
-.headlineEpisodes {
+.headlineContact {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -24,6 +24,7 @@ h1 {
   font-size: clamp(40px, 6vw, 100px);
   font-weight: 300;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  text-transform: uppercase;
 }
 
 .customShapeDividerBottom {
@@ -48,4 +49,12 @@ h1 {
 
 .shapeFill {
   fill: var(--darkblue);
+}
+
+.containerForm {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+  padding-bottom: 50px;
 }

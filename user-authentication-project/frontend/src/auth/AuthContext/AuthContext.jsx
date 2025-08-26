@@ -148,7 +148,7 @@ export const AuthProvider = ({ children }) => {
           success: true, // Registrering lykkedes
           message: data.message || "Registration successful",
         }; // Returnerer succes besked
-      } else { 
+      } else {
         return {
           // Hvis registrering fejlede
           success: false, // Registrering fejlede
@@ -189,7 +189,6 @@ export const AuthProvider = ({ children }) => {
     try {
       setLoading(true);
 
-      // Use the API router - remove .php extension
       const response = await fetch(
         "http://localhost:8000/api/forgot-password.php",
         {
@@ -202,10 +201,11 @@ export const AuthProvider = ({ children }) => {
         }
       );
 
-      // I stedet for at antage at det er valid JSON:
+      // Håndterer response som tekst først for at undgå JSON parse fejl
       const text = await response.text(); // Hent rå tekst response
-      console.log("Forgot password raw response:", text); 
+      console.log("Forgot password raw response:", text); // Log rå tekst til debugging
 
+      // Forsøg at parse JSON response med fejl-håndtering
       let data;
       try {
         data = JSON.parse(text);
@@ -217,8 +217,8 @@ export const AuthProvider = ({ children }) => {
         };
       }
 
-      // Your backend always returns success: true for security (prevent enumeration)
-      // So check the actual success field from the response
+      // Backend returnerer altid success: true af sikkerhedsmæssige årsager
+      // (for at forhindre email enumeration angreb)
       return {
         success: data.success || response.ok,
         message:
@@ -229,25 +229,24 @@ export const AuthProvider = ({ children }) => {
       console.error("Forgot password error:", error);
       return { success: false, message: "Network error occurred" };
     } finally {
-      setLoading(false);
+      setLoading(false); // Stop loading state
     }
   };
 
-  // Reset password function
+  // Reset password funktion - nulstiller password med token og nyt password
   const resetPassword = async (token, newPassword) => {
     try {
       setLoading(true);
 
-      // Use the API router - remove .php extension
       const response = await fetch(
         "http://localhost:8000/api/reset-password.php",
         {
-          method: "POST",
+          method: "POST", // Benytter POST til at sende token og nyt password til backend
           headers: {
-            "Content-Type": "application/json",
+            "Content-Type": "application/json", // Sender JSON data
           },
           credentials: "include", // Add credentials for session handling
-          body: JSON.stringify({ token, password: newPassword }),
+          body: JSON.stringify({ token, password: newPassword }), // Sender token og nyt password som JSON
         }
       );
 
@@ -267,39 +266,40 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // Change password function (for authenticated users)
+  // Change password funktion (til authenticated brugere)
   const changePassword = async (currentPassword, newPassword) => {
     try {
-      setLoading(true);
+      setLoading(true); // Starter loading state
 
       const response = await fetch(
         "http://localhost:8000/api/new-password.php",
         {
-          method: "POST",
+          method: "POST", // Bruger POST-metoden til at sende password-ændringsanmodningen til serveren
           headers: {
             "Content-Type": "application/json",
-          },
+          }, // Sender JSON data
           credentials: "include", // Important: include session cookies
           body: JSON.stringify({
             currentPassword,
             newPassword,
-          }),
+          }), // Sender currentPassword og newPassword som JSON
         }
       );
 
       const data = await response.json();
 
-      if (response.status === 401) { 
+      if (response.status === 401) {
         // User er ikke authenticated, redirect til login
         setUser(null); // nulstil bruger state
-        setIsAuthenticated(false); // sæt isAuthenticated til false
+        setIsAuthenticated(false); // sætter isAuthenticated til false
         return {
           success: false,
           message: "Session expired. Please log in again.",
-        };
+        }; // returner fejl besked
       }
 
-      return { // Hvis password-ændring er en succes
+      return {
+        // Hvis password-ændring er en succes
         success: data.success !== undefined ? data.success : response.ok,
         message:
           data.message ||
@@ -311,12 +311,12 @@ export const AuthProvider = ({ children }) => {
       console.error("Change password error:", error);
       return { success: false, message: "Network error occurred" };
     } finally {
-      setLoading(false);
+      setLoading(false); // Stop loading state uanset resultat
     }
   };
 
-  // Slet din profil -function
-  // Denne funktion gør det muligt for brugere at slette deres konto
+  // Slet din profil -funktion
+  // Gør det muligt for brugere at slette deres konto (permanent)
   const deleteProfile = async (password, confirmText) => {
     try {
       setLoading(true); // Starter loading state
@@ -360,32 +360,35 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // Context value
+  // Context værdi der eksporteres til alle child komponenter
   const value = {
-    user,
-    isAuthenticated,
-    loading,
-    login,
-    register,
-    logout,
-    forgotPassword,
-    resetPassword,
-    changePassword,
-    deleteProfile,
-    checkAuthStatus,
+    user, // Aktuel bruger objekt eller null hvis ikke logget ind
+    isAuthenticated, // Boolean der angiver om brugeren er logget ind
+    loading, // Boolean der angiver om en auth handling er i gang
+    login, // Login funktion
+    register, // Register funktion
+    logout, // Logout funktion
+    forgotPassword, // Glem password funktion
+    resetPassword, // Reset password funktion
+    changePassword, // Change password funktion
+    deleteProfile, // Delete profile funktion
+    checkAuthStatus, // Funktion til at tjekke auth status
   };
 
+  // Returnerer AuthContext provider der wrap'er hele appen
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 
-// Example usage component to demonstrate the context
+// Eksempel komponent der demonstrerer brugen af context
 export const AuthDemo = () => {
   const { user, isAuthenticated, loading, logout } = useAuth();
 
+  // Vis loading mens autentificeringsstatus tjekkes
   if (loading) {
     return <div className={styles.loading}>Loading...</div>;
   }
 
+  // Vis brugerinfo hvis logget ind, ellers vis login prompt
   return (
     <div className={styles.container}>
       <h2 className={styles.title}>Authentication Status</h2>

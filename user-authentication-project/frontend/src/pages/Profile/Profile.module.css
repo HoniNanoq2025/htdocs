@@ -63,13 +63,17 @@ h1 {
   padding: 10px 50px;
   width: 100%;
   max-width: 400px;
-  background-color: rgb(148, 19, 19);
+  background-color: var(--iframe);
   color: white;
   border: none;
   border-radius: 8px;
   cursor: pointer;
   font-size: 0.8rem;
   text-align: center;
+}
+
+.deleteProfileLink:hover {
+  background-color: var(--red);
 }
 
 .deleteLink {

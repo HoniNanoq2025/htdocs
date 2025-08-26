@@ -193,6 +193,7 @@
 .deleteButton,
 .replyButton,
 .saveButton,
+.replySubmitButton,
 .cancelButton {
   background: none;
   border: 1px solid;
@@ -225,12 +226,18 @@
   color: white;
 }
 
-.replyButton {
+.replyButton,
+.replySubmitButton {
   color: purple;
   border-color: purple;
 }
 
 .replyButton:hover:not(:disabled) {
+  background: purple;
+  color: white;
+}
+
+.replySubmitButton:hover:not(:disabled) {
   background: purple;
   color: white;
 }
@@ -288,6 +295,12 @@
 .editActions {
   display: flex;
   gap: 0.5rem;
+}
+
+.replyActions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
 }
 
 /* Responsive design */

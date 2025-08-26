@@ -204,7 +204,8 @@ const ProtectedRouteDemo = () => {
       {/* Kode eksempler sektion */}
       <div className={styles.codeSection}>
         <h4 className={styles.codeTitle}>Usage Examples:</h4>
-        {/* Vis kode eksempler i en præformat blok */}
+        {/* Vis kode eksempler i en præformat blok*/}
+        {/* Præformat bevarer mellemrum og linjeskift helt præcist*/}
         <pre className={styles.codeBlock}>
           {`// Grundlæggende benyttelse
             <ProtectedRoute>

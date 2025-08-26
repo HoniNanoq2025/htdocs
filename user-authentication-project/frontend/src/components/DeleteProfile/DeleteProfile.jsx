@@ -2,55 +2,61 @@ import { useState } from "react";
 import { useAuth } from "../../auth/AuthContext/AuthContext";
 import styles from "./DeleteProfile.module.css";
 
+// DeleteProfile komponent
 const DeleteProfile = () => {
-  const [password, setPassword] = useState("");
-  const [confirmText, setConfirmText] = useState("");
-  const [showConfirmation, setShowConfirmation] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [message, setMessage] = useState("");
-  const [messageType, setMessageType] = useState(""); // 'success' or 'error'
+  const [password, setPassword] = useState(""); // Brugerens nuværende password
+  const [confirmText, setConfirmText] = useState(""); // Tekst til bekræftelse af sletning
+  const [showConfirmation, setShowConfirmation] = useState(false); // Vis bekræftelsesformular
+  const [isLoading, setIsLoading] = useState(false); // Loader state under sletning
+  const [message, setMessage] = useState(""); // Feedback besked til brugeren
+  const [messageType, setMessageType] = useState(""); // 'success' eller 'error'
 
-  const { deleteProfile, user } = useAuth();
+  const { deleteProfile, user } = useAuth(); // Hent deleteProfile funktion og brugerdata fra AuthContext
 
+  // Håndter initial klik på slet profil knap
   const handleInitialDelete = (e) => {
-    e.preventDefault();
-    setShowConfirmation(true);
-    setMessage("");
+    e.preventDefault(); // Forhindre standard form submission
+    setShowConfirmation(true); // Vis bekræftelsesformular
+    setMessage(""); // Nulstil besked
   };
 
+  // Håndter bekræftelse af sletning
   const handleConfirmDelete = async (e) => {
-    e.preventDefault();
-    setIsLoading(true);
-    setMessage("");
+    e.preventDefault(); // Forhindre standard form submission
+    setIsLoading(true); // Sæt loader state til true under sletning for at forhindre flere klik
+    setMessage(""); // Nulstil besked
 
-    const result = await deleteProfile(password, confirmText);
+    const result = await deleteProfile(password, confirmText); // Kald deleteProfile fra AuthContext. Parametre: password og confirmText
 
     if (result.success) {
-      setMessageType("success");
-      setMessage(result.message);
+      setMessageType("success"); // Sæt beskedtype til success
+      setMessage(result.message); // Vis succes besked
       // Profile is deleted, user will be redirected automatically
       setTimeout(() => {
         window.location.href = "/";
-      }, 3000);
+      }, 3000); // Redirect efter 3 sekunder
     } else {
-      setMessageType("error");
-      setMessage(result.message);
+      setMessageType("error"); // Sæt beskedtype til error
+      setMessage(result.message); // Vis fejl besked
     }
 
-    setIsLoading(false);
+    setIsLoading(false); // Nulstil loader state når sletning er færdig
   };
 
+  // Håndter annullering af sletning
   const handleCancel = () => {
-    setShowConfirmation(false);
-    setPassword("");
-    setConfirmText("");
-    setMessage("");
+    setShowConfirmation(false); // Skjul bekræftelsesformular
+    setPassword(""); // Nulstil password felt
+    setConfirmText(""); // Nulstil confirmText felt
+    setMessage(""); // Nulstil besked
   };
 
+  // Gå tilbage til forrige side
   const goBack = () => {
     window.history.back();
   };
 
+  // Hvis bekræftelsesformular ikke skal vises, vis initial slet profil skærm
   if (!showConfirmation) {
     return (
       <div className={styles.container}>
@@ -78,10 +84,11 @@ const DeleteProfile = () => {
             <div className={styles.accountInfo}>
               <p className={styles.accountText}>
                 <strong>Current account:</strong> {user?.username} (
-                {user?.email})
+                {user?.email}) {/* Vis brugerens brugernavn og email */}
               </p>
             </div>
 
+            {/* Knapper til at slette profil eller annullere */}
             <button
               onClick={handleInitialDelete}
               className={`${styles.button} ${styles.deleteButton}`}

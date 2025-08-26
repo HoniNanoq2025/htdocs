@@ -1,28 +1,35 @@
+// frontend/src/components/CookieBanner/CookieBanner.jsx
+
 import { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 import { Link } from "react-router-dom";
 import styles from "./CookieBanner.module.css";
 
+// Cookie banner komponent
 const CookieBanner = () => {
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(false); // State til at styre synlighed
 
+  // Tjek om cookie consent allerede er givet ved mount
   useEffect(() => {
-    const consent = Cookies.get("cookieConsent");
+    const consent = Cookies.get("cookieConsent"); // Cookies kommer fra js-cookie bibliotek
     if (!consent) {
-      setIsVisible(true);
+      setIsVisible(true); // Vis banner hvis ingen cookie consent
     }
   }, []);
 
+  // Håndter accept af cookies
   const handleAccept = () => {
     Cookies.set("cookieConsent", "accepted", { expires: 365 }); //expires er antal dage cookies er gyldige
     setIsVisible(false);
   };
 
+  // Håndter afvisning af cookies
   const handleDecline = () => {
-    Cookies.set("cookieConsent", "declined", { expires: 365 });
-    setIsVisible(false);
+    Cookies.set("cookieConsent", "declined", { expires: 365 }); 
+    setIsVisible(false); // Skjul banner
   };
 
+  // Hvis banner ikke skal vises, returner null (ingen rendering)
   if (!isVisible) return null;
 
   return (

@@ -4,43 +4,45 @@ import { FaHeart } from "react-icons/fa6";
 import EpisodeReview from "../EpisodeReview/EpisodeReview";
 import LikeCounter from "../LikeCounter/LikeCounter";
 
+// EpisodeCard komponent med props: episode, favorites, toggleFavorites fra parent komponent
 export default function EpisodeCard({ episode, favorites, toggleFavorites }) {
-  const navigate = useNavigate();
+  const navigate = useNavigate(); // Hook til navigation
+
+  // Render EpisodeCard med episode data og interaktive elementer
   return (
     <div className={styles.card}>
       <div className={styles.imageContainer}>
         <div
           className={styles.image}
           style={{
-            backgroundImage: `url(${episode.Image})`,
+            backgroundImage: `url(${episode.Image})`, // Dynamisk baggrundsbillede
             backgroundSize: "cover",
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat",
           }}
-          role="img"
-          aria-label={`${episode.Title} episode thumbnail`}
+          role="img" // Rolle for tilgængelighed
+          aria-label={`${episode.Title} episode thumbnail`} // Tilgængelighedslabel
         />
+        {/* Read more-knap -> læs mere om episode */}
         <button
           className={styles.readMoreBtn}
           aria-label="Click to read more about this episode"
-          onClick={() => navigate(`/episodes/${episode.Id}`)}
+          onClick={() => navigate(`/episodes/${episode.Id}`)} // Naviger til episode detaljer
         >
           Read more
         </button>
       </div>
       <div className={styles.redContainer}>
         <div className={styles.likesContainer}>
+          {/* Favorit knap */}
           <button
-            aria-label={favorites.includes(episode.Id) ? "Unlike" : "Like"}
-            onClick={() => toggleFavorites(episode.Id)}
-            style={{
-              background: "none",
-              border: "none",
-              cursor: "pointer",
-              padding: 0,
-              display: "flex",
-              alignItems: "center",
-            }}
+            aria-label={
+              favorites.includes(episode.Id)
+                ? "Remove from favorites"
+                : "Add to favorites"
+            } // Tilgængelighedslabel
+            onClick={() => toggleFavorites(episode.Id)} // Toggle favorit status
+            className={styles.favoriteButton}
           >
             <FaHeart
               size={24}
@@ -49,7 +51,7 @@ export default function EpisodeCard({ episode, favorites, toggleFavorites }) {
                   ? "var(--lightblue)"
                   : "var(--light)",
                 transition: "color 0.2s",
-              }}
+              }} // Dynamisk farve baseret på favorit status
             />
           </button>
           {/* Like counter with episode ID */}

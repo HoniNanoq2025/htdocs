@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useAuth } from "./auth/AuthContext/AuthContext";
 import Home from "./pages/Home/Home";
 import About from "./pages/About/About";
-import Contact from "./pages/Contact";
+import Contact from "./pages/Contact/Contact";
 import Dashboard from "./pages/Dashboard";
 import Profile from "./pages/Profile/Profile";
 import LoginForm from "./components/LoginForm/LoginForm";

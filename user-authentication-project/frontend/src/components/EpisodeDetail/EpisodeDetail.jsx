@@ -14,18 +14,20 @@ export default function EpisodeDetail({ favorites, toggleFavorites }) {
   const [allEpisodes, setAllEpisodes] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
 
+  // Funktion der formaterer episodens varighed til hh:mm:ss format
   const formatDuration = (episodeLength) => {
     if (!episodeLength) return "00:00:00";
 
-    const { hours = 0, minutes = 0, seconds = 0 } = episodeLength;
+    const { hours = 0, minutes = 0, seconds = 0 } = episodeLength; // Sikrer at værdierne er tal og sætter standard til 0
 
-    const formatNumber = (num) => num.toString().padStart(2, "0");
+    const formatNumber = (num) => num.toString().padStart(2, "0"); // Tilføjer foranstillede nuller
 
     return `${formatNumber(hours)}:${formatNumber(minutes)}:${formatNumber(
       seconds
-    )}`;
+    )}`; // Returnerer formateret streng hh:mm:ss
   };
 
+  // Henter episode data baseret på Id fra URL
   useEffect(() => {
     const fetchEpisode = async () => {
       try {
@@ -33,20 +35,21 @@ export default function EpisodeDetail({ favorites, toggleFavorites }) {
         const data = await response.json();
 
         // Store all episodes and find current episode
-        setAllEpisodes(data);
-        const foundEpisode = data.find((ep) => ep.Id === parseInt(Id));
-        setEpisode(foundEpisode);
+        setAllEpisodes(data); 
+        const foundEpisode = data.find((ep) => ep.Id === parseInt(Id)); // Konverterer Id til tal for sammenligning
+        setEpisode(foundEpisode); 
 
-        // Find the current episode's index in the array
+        // Find det nuværende episode's index i array
         const index = data.findIndex((ep) => ep.Id === parseInt(Id));
         setCurrentIndex(index);
       } catch (error) {
         console.error("Error fetching episode:", error);
       }
     };
-    fetchEpisode();
-  }, [Id]);
+    fetchEpisode(); // Kald funktionen for at hente data
+  }, [Id]); // Kører effekten når Id ændres hvilket sker ved navigation
 
+  // Opdaterer dokumentets titel baseret på den aktuelle episode
   useEffect(() => {
     if (episode) {
       document.title = `Season ${episode.Season}, Episode ${episode.PodcastEpisode} || ReCall The Midwife - Unofficial Podcast`;

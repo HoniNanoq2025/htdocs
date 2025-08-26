@@ -35,9 +35,9 @@ export default function EpisodeDetail({ favorites, toggleFavorites }) {
         const data = await response.json();
 
         // Store all episodes and find current episode
-        setAllEpisodes(data); 
+        setAllEpisodes(data);
         const foundEpisode = data.find((ep) => ep.Id === parseInt(Id)); // Konverterer Id til tal for sammenligning
-        setEpisode(foundEpisode); 
+        setEpisode(foundEpisode);
 
         // Find det nuværende episode's index i array
         const index = data.findIndex((ep) => ep.Id === parseInt(Id));
@@ -306,7 +306,7 @@ export default function EpisodeDetail({ favorites, toggleFavorites }) {
               </div>
               <hr></hr>
               <div className={styles.commentSection}>
-                <Comments episodeId={episode.Id} />
+                <Comments pageUrl={`/episodes/${episode.Id}`} />
               </div>
             </div>
           </div>

@@ -3,8 +3,13 @@ import { useState, useEffect } from "react";
 import { useAuth } from "../../auth/AuthContext/AuthContext";
 import styles from "./Comments.module.css";
 
+// Kommentar komponent
+// Håndterer visning, tilføjelse, redigering og sletning af kommentarer
 const Comments = ({ pageUrl = "/" }) => {
+  // Tjekker om brugeren er logget ind
   const { user, isAuthenticated } = useAuth();
+
+  // useState hooks til at håndtere komponentens tilstand
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
   const [loading, setLoading] = useState(false);
@@ -14,42 +19,47 @@ const Comments = ({ pageUrl = "/" }) => {
   const [replyingTo, setReplyingTo] = useState(null);
   const [replyContent, setReplyContent] = useState("");
 
+  // API base URL
   const API_BASE = "http://localhost:8000/api";
 
+  // Hent kommentarer når komponenten mountes eller pageUrl ændres
   useEffect(() => {
     if (isAuthenticated) {
       fetchComments();
     }
   }, [isAuthenticated, pageUrl]);
 
+  // async funktion til at hente kommentarer fra backend
   const fetchComments = async () => {
     try {
       setLoading(true);
       const response = await fetch(
         `${API_BASE}/comments.php?page=${encodeURIComponent(pageUrl)}`,
         {
-          credentials: "include",
+          credentials: "include", // Inkluder cookies til session håndtering
           headers: {
             "Content-Type": "application/json",
-          },
+          }, // Angiv JSON som forventet format
         }
       );
 
+      // Tjek om response er ok (status 200-299)
       if (response.ok) {
-        const data = await response.json();
+        const data = await response.json(); 
+        // Hvis success er true, opdater kommentarer
         if (data.success) {
           setComments(data.comments);
         } else {
           setError(data.message || "Failed to fetch comments");
         }
       } else {
-        throw new Error(`HTTP ${response.status}`);
+        throw new Error(`HTTP ${response.status}`); 
       }
     } catch (err) {
-      console.error("Error fetching comments:", err);
-      setError("Failed to load comments");
+      console.error("Error fetching comments:", err); // Log fejl til konsollen
+      setError("Failed to load comments"); // Vis generisk fejlbesked
     } finally {
-      setLoading(false);
+      setLoading(false); // Stop loading state når fetch er færdig
     }
   };
 

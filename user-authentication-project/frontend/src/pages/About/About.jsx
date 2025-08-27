@@ -125,6 +125,7 @@ export default function About() {
             <a
               href="https://canvas-story.bbcrewind.co.uk/fansstories/"
               aria-label="Link to BBC Fan Stories"
+              target="_blank"
             >
               <img
                 src={bbcSpecial}

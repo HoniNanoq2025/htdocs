@@ -129,6 +129,7 @@ export default function About() {
               <img
                 src={bbcSpecial}
                 alt="Screenshot from Alex's BBC Fan Stories interview"
+                className={styles.alexImg}
               />
             </a>
           </div>

@@ -1,6 +1,6 @@
 import styles from "./LoginForm.module.css";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../auth/AuthContext/AuthContext";
 
 const LoginForm = () => {
@@ -13,13 +13,15 @@ const LoginForm = () => {
 
   const { login, loading } = useAuth();
 
+  const navigate = useNavigate();
+
   const onSubmit = async (data) => {
     const result = await login(data.email, data.password);
 
     if (result.success) {
       alert("You are now logged in!");
       reset();
-      window.location.href = "/profile";
+      navigate("/profile");
     } else {
       alert(result.message || "Login failed.");
     }

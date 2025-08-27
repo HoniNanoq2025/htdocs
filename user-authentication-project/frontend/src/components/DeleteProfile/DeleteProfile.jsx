@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useAuth } from "../../auth/AuthContext/AuthContext";
+import { useNavigate } from "react-router-dom";
 import styles from "./DeleteProfile.module.css";
 
 // DeleteProfile komponent
@@ -12,6 +13,8 @@ const DeleteProfile = () => {
   const [messageType, setMessageType] = useState(""); // 'success' eller 'error'
 
   const { deleteProfile, user } = useAuth(); // Hent deleteProfile funktion og brugerdata fra AuthContext
+
+  const navigate = useNavigate();
 
   // Håndter initial klik på slet profil knap
   const handleInitialDelete = (e) => {
@@ -33,7 +36,7 @@ const DeleteProfile = () => {
       setMessage(result.message); // Vis succes besked
       // Profile is deleted, user will be redirected automatically
       setTimeout(() => {
-        window.location.href = "/";
+        navigate("/");
       }, 3000); // Redirect efter 3 sekunder
     } else {
       setMessageType("error"); // Sæt beskedtype til error
@@ -107,7 +110,7 @@ const DeleteProfile = () => {
       </div>
     );
   }
- 
+
   // Delete bekræftelse
   return (
     <div className={styles.container}>

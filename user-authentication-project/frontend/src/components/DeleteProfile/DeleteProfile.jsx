@@ -107,7 +107,8 @@ const DeleteProfile = () => {
       </div>
     );
   }
-
+ 
+  // Delete bekræftelse
   return (
     <div className={styles.container}>
       <div className={styles.card}>

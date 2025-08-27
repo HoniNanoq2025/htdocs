@@ -10,14 +10,16 @@ const Comments = ({ pageUrl = "/" }) => {
   const { user, isAuthenticated } = useAuth();
 
   // useState hooks til at håndtere komponentens tilstand
-  const [comments, setComments] = useState([]);
-  const [newComment, setNewComment] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [comments, setComments] = useState([]); // start med et tomt array
+  const [newComment, setNewComment] = useState(""); // start med tom string-værdi
+  const [loading, setLoading] = useState(false); // Loading er "slukket" indtil den sættes til true
   const [error, setError] = useState("");
-  const [editingId, setEditingId] = useState(null);
+  const [editingId, setEditingId] = useState(null); // null signalerer at der ikke er data nu, men det kommer senere
   const [editContent, setEditContent] = useState("");
   const [replyingTo, setReplyingTo] = useState(null);
   const [replyContent, setReplyContent] = useState("");
+  // null signalerer “intet endnu”
+  // Andre tomme værdier ("", [], {}) signalerer typisk “vi har data, men den er tom”.
 
   // API base URL
   const API_BASE = "http://localhost:8000/api";
@@ -45,7 +47,7 @@ const Comments = ({ pageUrl = "/" }) => {
 
       // Tjek om response er ok (status 200-299)
       if (response.ok) {
-        const data = await response.json(); 
+        const data = await response.json();
         // Hvis success er true, opdater kommentarer
         if (data.success) {
           setComments(data.comments);
@@ -53,7 +55,7 @@ const Comments = ({ pageUrl = "/" }) => {
           setError(data.message || "Failed to fetch comments");
         }
       } else {
-        throw new Error(`HTTP ${response.status}`); 
+        throw new Error(`HTTP ${response.status}`);
       }
     } catch (err) {
       console.error("Error fetching comments:", err); // Log fejl til konsollen

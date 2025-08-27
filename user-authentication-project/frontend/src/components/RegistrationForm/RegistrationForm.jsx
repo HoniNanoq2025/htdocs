@@ -1,5 +1,6 @@
 import { useForm } from "react-hook-form";
 import { useAuth } from "../../auth/AuthContext/AuthContext";
+import { useNavigate } from "react-router-dom";
 import styles from "./RegistrationForm.module.css";
 
 const RegistrationForm = () => {
@@ -12,6 +13,8 @@ const RegistrationForm = () => {
 
   const { register: registerUser, loading } = useAuth();
 
+  const navigate = useNavigate();
+
   const onSubmit = async (data) => {
     try {
       const result = await registerUser(
@@ -23,7 +26,7 @@ const RegistrationForm = () => {
       if (result.success) {
         alert("Du er nu registreret!");
         reset();
-        window.location.href = "/login"; // Redirect to login after successful registration
+        navigate("/login"); // Redirect to login after successful registration
       } else {
         alert(result.message || "Registrering mislykkedes.");
       }

@@ -24,7 +24,7 @@ if (!isset($_SESSION['user_id'])) {
     http_response_code(401);
     echo json_encode([
         "success" => false,
-        "message" => "Du skal være logget ind for at ændre din adgangskode."
+        "message" => "You have to be logged in to change your password."
     ]);
     exit;
 }
@@ -38,7 +38,7 @@ $newPassword = $input['newPassword'] ?? '';
 if (empty($currentPassword) || empty($newPassword)) {
     echo json_encode([
         "success" => false,
-        "message" => "Nuværende adgangskode og ny adgangskode er påkrævet."
+        "message" => "Current password and new password are required."
     ]);
     exit;
 }
@@ -46,7 +46,7 @@ if (empty($currentPassword) || empty($newPassword)) {
 if (strlen($newPassword) < 8) {
     echo json_encode([
         "success" => false,
-        "message" => "Den nye adgangskode skal være mindst 8 tegn lang."
+        "message" => "The new password must contain at least 8 characters."
     ]);
     exit;
 }
@@ -63,7 +63,7 @@ try {
     if (!$user) {
         echo json_encode([
             "success" => false,
-            "message" => "Bruger ikke fundet."
+            "message" => "User not found."
         ]);
         exit;
     }
@@ -72,7 +72,7 @@ try {
     if (!password_verify($currentPassword, $user['password_hash'])) {
         echo json_encode([
             "success" => false,
-            "message" => "Den nuværende adgangskode er forkert."
+            "message" => "Current password is wrong."
         ]);
         exit;
     }
@@ -81,7 +81,7 @@ try {
     if (password_verify($newPassword, $user['password_hash'])) {
         echo json_encode([
             "success" => false,
-            "message" => "Den nye adgangskode skal være anderledes end den nuværende."
+            "message" => "New password must be different from the current."
         ]);
         exit;
     }
@@ -99,12 +99,12 @@ try {
         
         echo json_encode([
             "success" => true,
-            "message" => "Din adgangskode er blevet ændret succesfuldt."
+            "message" => "Your password has been succesfully changed."
         ]);
     } else {
         echo json_encode([
             "success" => false,
-            "message" => "Der opstod en fejl ved ændring af adgangskoden."
+            "message" => "An error occured when changing the password."
         ]);
     }
     
@@ -112,13 +112,13 @@ try {
     error_log("Database error in new-password: " . $e->getMessage());
     echo json_encode([
         "success" => false,
-        "message" => "Der opstod en teknisk fejl. Prøv venligst igen."
+        "message" => "Technical error. Please try again."
     ]);
 } catch(Exception $e) {
     error_log("General error in new-password: " . $e->getMessage());
     echo json_encode([
         "success" => false,
-        "message" => "Der opstod en fejl. Prøv venligst igen."
+        "message" => "An error occurred. Please try again."
     ]);
 }
 ?>

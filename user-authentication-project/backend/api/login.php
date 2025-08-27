@@ -10,7 +10,7 @@ $email = trim($input['email'] ?? '');
 $password = $input['password'] ?? '';
 
 if (!$email || !$password) {
-    echo json_encode(["success" => false, "message" => "Ugyldige loginoplysninger."]);
+    echo json_encode(["success" => false, "message" => "Invalid login information."]);
     exit;
 }
 
@@ -27,7 +27,7 @@ $user = $stmt->fetch();
 
 if ($user && password_verify($password, $user['password_hash'])) {
     $_SESSION['user_id'] = $user['id'];
-    echo json_encode(["success" => true, "message" => "Login lykkedes."]);
+    echo json_encode(["success" => true, "message" => "Login succeeded."]);
 } else {
-    echo json_encode(["success" => false, "message" => "Forkert email eller adgangskode."]);
+    echo json_encode(["success" => false, "message" => "Wrong email or password."]);
 }

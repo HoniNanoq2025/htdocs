@@ -24,7 +24,7 @@ $username = trim($input['username']);
 $email = trim($input['email']);
 $password = $input['password'];
 
-if (strlen($username) < 3 || strlen($password) < 6) {
+if (strlen($username) < 3 || strlen($password) < 8) {
     http_response_code(400);
     echo json_encode(['error' => 'Username must be at least 3 characters and password at least 8 characters.']);
     exit;
@@ -56,7 +56,10 @@ try {
     ]);
 
     http_response_code(201); // Created
-    echo json_encode(['message' => 'User registered successfully.']);
+    echo json_encode([
+    'success' => true,
+    'message' => 'User registered successfully.'
+]);
 } catch (PDOException $e) {
     http_response_code(500);
     echo json_encode(['error' => 'Server error: ' . $e->getMessage()]);

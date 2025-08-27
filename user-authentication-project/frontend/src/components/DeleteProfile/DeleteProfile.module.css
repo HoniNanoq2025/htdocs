@@ -2,7 +2,7 @@
 
 .container {
   min-height: 100vh;
-  background-color: #f9fafb;
+  background-color: var(--darkblue);
   padding: 3rem 1rem;
   display: flex;
   align-items: center;
@@ -12,7 +12,7 @@
 .card {
   max-width: 28rem;
   width: 100%;
-  background-color: white;
+  background-color: var(--lightblue);
   border-radius: 0.5rem;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
     0 2px 4px -1px rgba(0, 0, 0, 0.06);
@@ -27,7 +27,7 @@
 .title {
   font-size: 1.875rem;
   font-weight: bold;
-  color: #111827;
+  color: var(--iframe);
   margin: 0 0 0.5rem 0;
 }
 
@@ -155,7 +155,7 @@
 
 .deleteButton {
   color: white;
-  background-color: #dc2626;
+  background-color: var(--red);
   border-color: transparent;
 }
 
@@ -169,7 +169,7 @@
 
 .confirmDeleteButton {
   color: white;
-  background-color: #dc2626;
+  background-color: var(--red);
   border-color: transparent;
 }
 
@@ -182,13 +182,13 @@
 }
 
 .cancelButton {
-  color: #374151;
-  background-color: white;
-  border-color: #d1d5db;
+  color: var(--light);
+  background-color: var(--iframe);
+  border-color: none;
 }
 
 .cancelButton:hover {
-  background-color: #f9fafb;
+  background-color: green;
 }
 
 .cancelButton:focus {

@@ -23,8 +23,8 @@ class User {
             }
             
             // Validate input
-            if (strlen($password) < 6) {
-                return ['success' => false, 'message' => 'Password must be at least 6 characters'];
+            if (strlen($password) < 8) {
+                return ['success' => false, 'message' => 'Password must be at least 8 characters'];
             }
             
             // Hash the password

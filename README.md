@@ -3,6 +3,7 @@
 - Open Shell
 
 **to start backend type:**
+
 cd c:\xampp\htdocs\user-authentication-project\backend
 
 php -S localhost:8000
